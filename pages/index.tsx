@@ -1,111 +1,58 @@
-import Head from 'next/head';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  createMuiTheme,
-} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import {ThemeProvider} from '@material-ui/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
+import NoSsr from '@material-ui/core/NoSsr';
+import GoogleMapReact from 'google-map-react';
+import '../style.css';
+import Keys from '../config/keys';
+import Dialog from '@material-ui/core/Dialog';
+import {useState} from 'react';
+import Drawer from '@material-ui/core/Drawer';
+import {Marker, Navbar} from '../components';
+import Base from './_Base.tsx';
 
-function Font() {
-  return (
-    <Head>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      />
-    </Head>
-  );
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    appBar: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      fontWeight: 400,
-      marginLeft: theme.spacing(2),
-    },
-    appTitle: {
-      flexGrow: 1,
-    },
-    link: {
-      margin: theme.spacing(1, 1.5),
-    },
-  }),
-);
-
-function Navbar() {
-  const classes = useStyles();
-
-  return (
-    <AppBar position="static" className={classes.appBar}>
-      <Toolbar>
-        <Typography
-          variant="h6"
-          color="inherit"
-          noWrap
-          className={classes.appTitle}>
-          Comer muda o mundo
-        </Typography>
-
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}>
-          Quem Somos
-        </Link>
-
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}>
-          Mapa
-        </Link>
-
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}>
-          Iniciativas
-        </Link>
-      </Toolbar>
-    </AppBar>
-  );
-}
-
-const theme = createMuiTheme({
-  palette: {
-    primary: purple,
-    secondary: green,
+const mapsProps = {
+  center: {
+    lat: -22.9,
+    lng: -43.2,
   },
-});
+  zoom: 13,
+};
 
-function Home() {
+function Map() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-
-      <Font />
-
-      <Navbar></Navbar>
-      <main>cachorro</main>
-    </ThemeProvider>
+    <Base>
+      <main style={{height: 'calc(100vh - 64px)'}}>
+        <Drawer anchor="bottom" open={drawerOpen} variant="persistent">
+          qato <span onClick={() => setDrawerOpen(false)}>XISZINHO</span>
+          here are many variations of passages of Lorem Ipsum available, but the
+          majority have suffered alteration in some form, by injected humour, or
+          randomised words which don't look even slightly believable. If you are
+          going to use a passage of Lorem Ipsum, you need to be sure there isn't
+          anything embarrassing hidden in the middle of text. All the Lorem
+          Ipsum generators on the Internet tend to repeat predefined chunks as
+          necessary, making this the first true generator on the Internet. It
+          uses a dictionary of over 200 Latin words, combined with a handful of
+          model sentence structures, to generate Lorem Ipsum which looks
+          reasonable. The generated Lorem Ipsum is therefore always free from
+          repetition, injected humour, or non-characteristic words etc.
+        </Drawer>
+        <NoSsr>
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: Keys.GOOGLE_MAPS_KEY,
+            }}
+            defaultZoom={mapsProps.zoom}
+            defaultCenter={mapsProps.center}>
+            <Marker
+              onClick={() => setDrawerOpen(true)}
+              lat={mapsProps.center.lat}
+              lng={mapsProps.center.lng}
+              text="my market"
+            />
+          </GoogleMapReact>
+        </NoSsr>
+      </main>
+    </Base>
   );
 }
-
-export default Home;
+export default Map;
