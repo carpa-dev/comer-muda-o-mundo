@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useEffect } from 'react';
 import {createMuiTheme} from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
@@ -6,6 +7,7 @@ import green from '@material-ui/core/colors/green';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {ThemeProvider} from '@material-ui/styles';
 import {Navbar} from '../components';
+
 function Font() {
   return (
     <Head>
@@ -25,6 +27,13 @@ const theme = createMuiTheme({
 });
 
 function Base(props: any) {
+  useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles !== null && jssStyles.parentNode !== null) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
