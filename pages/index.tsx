@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Card, Marker } from '../components';
 import Keys from '../config/keys';
 import '../style.css';
-import Base from './_Base';
 
 const mapsProps = {
   center: {
@@ -63,31 +62,29 @@ function Map() {
   };
 
   return (
-    <Base>
-      <main style={{ height: 'calc(100vh - 64px)' }}>
-        <Drawer anchor="bottom" open={drawerOpen} variant="persistent">
-          <Card onClose={() => setDrawerOpen(false)} />
-        </Drawer>
-        <NoSsr>
-          <GoogleMapReact
-            bootstrapURLKeys={{
-              key: Keys.GOOGLE_MAPS_KEY,
-            }}
-            defaultZoom={mapsProps.zoom}
-            defaultCenter={mapsProps.center}
-            // onGoogleApiLoaded={({ map, maps }) => handleAPILoaded(map, maps)}
-            yesIWantToUseGoogleMapApiInternals
-          >
-            <Marker
-              onClick={onMarkerClick}
-              lat={mapsProps.center.lat}
-              lng={mapsProps.center.lng}
-              text="my market"
-            />
-          </GoogleMapReact>
-        </NoSsr>
-      </main>
-    </Base>
+    <main style={{ height: 'calc(100vh - 64px)' }}>
+      <Drawer anchor="bottom" open={drawerOpen} variant="persistent">
+        <Card onClose={() => setDrawerOpen(false)} />
+      </Drawer>
+      <NoSsr>
+        <GoogleMapReact
+          bootstrapURLKeys={{
+            key: Keys.GOOGLE_MAPS_KEY,
+          }}
+          defaultZoom={mapsProps.zoom}
+          defaultCenter={mapsProps.center}
+          // onGoogleApiLoaded={({ map, maps }) => handleAPILoaded(map, maps)}
+          yesIWantToUseGoogleMapApiInternals
+        >
+          <Marker
+            onClick={onMarkerClick}
+            lat={mapsProps.center.lat}
+            lng={mapsProps.center.lng}
+            text="my market"
+          />
+        </GoogleMapReact>
+      </NoSsr>
+    </main>
   );
 }
 
