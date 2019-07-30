@@ -9,14 +9,16 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Close from '@material-ui/icons/Close';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  root: {
-    width: '70vw',
-    maxWidth: 600,
-    minHeight: 200,
-    margin: `0 auto ${theme.spacing(2)}px`,
-  },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '70vw',
+      maxWidth: 600,
+      minHeight: 200,
+      margin: `0 auto ${theme.spacing(2)}px`,
+    },
+  })
+);
 
 function Card(props: any) {
   const classes = useStyles();
@@ -24,11 +26,14 @@ function Card(props: any) {
     <MuiCard classes={classes}>
       <CardActionArea>
         <CardContent>
-          <Grid alignItems="center" justify="space-between" spacing={1} container>
+          <Grid
+            alignItems="center"
+            justify="space-between"
+            spacing={1}
+            container
+          >
             <Grid item>
-              <Typography variant="h6">
-                Raízes do Brasil
-              </Typography>
+              <Typography variant="h6">Raízes do Brasil</Typography>
             </Grid>
             <Grid item>
               <IconButton size="small" onClick={props.onClose}>
@@ -45,10 +50,13 @@ function Card(props: any) {
                 Horário de funcionamento: terças, sábados e domingos
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Tipo de estabelecimento: compra de alimentos frescos + compras para a despensa + restaurante + entrega de alimentos
+                Tipo de estabelecimento: compra de alimentos frescos + compras
+                para a despensa + restaurante + entrega de alimentos
               </Typography>
               <Typography variant="body2">
-                Características: Agroecológico, Orgânico, Redução de resíduos (sem plástico, lixo zero), Vegano, Sem alimentos ultraprocessados, Ligação com movimento social
+                Características: Agroecológico, Orgânico, Redução de resíduos
+                (sem plástico, lixo zero), Vegano, Sem alimentos
+                ultraprocessados, Ligação com movimento social
               </Typography>
             </Grid>
           </Grid>

@@ -3,7 +3,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     link: {
       margin: theme.spacing(1, 1.5),
     },
-  }),
+  })
 );
 function Navbar() {
   const classes = useStyles();
@@ -35,7 +35,8 @@ function Navbar() {
           variant="h6"
           color="inherit"
           noWrap
-          className={classes.appTitle}>
+          className={classes.appTitle}
+        >
           Comer muda o mundo
         </Typography>
 
@@ -43,7 +44,8 @@ function Navbar() {
           variant="button"
           color="inherit"
           href="#"
-          className={classes.link}>
+          className={classes.link}
+        >
           Quem Somos
         </Link>
 
@@ -51,7 +53,8 @@ function Navbar() {
           variant="button"
           color="inherit"
           href="#"
-          className={classes.link}>
+          className={classes.link}
+        >
           Mapa
         </Link>
 
@@ -59,7 +62,8 @@ function Navbar() {
           variant="button"
           color="inherit"
           href="#"
-          className={classes.link}>
+          className={classes.link}
+        >
           Iniciativas
         </Link>
       </Toolbar>

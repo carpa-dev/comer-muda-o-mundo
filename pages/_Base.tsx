@@ -1,12 +1,12 @@
-import Head from 'next/head';
-import { useEffect } from 'react';
-import {createMuiTheme} from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
-
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {ThemeProvider} from '@material-ui/styles';
-import {Navbar} from '../components';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import Head from 'next/head';
+import { useEffect } from 'react';
+
+import { Navbar } from '../components';
 
 function Font() {
   return (

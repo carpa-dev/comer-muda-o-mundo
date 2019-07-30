@@ -16,12 +16,14 @@ const mapsProps = {
   zoom: 13,
 };
 
-const useStyles = makeStyles(() => createStyles({
-  paperRoot: {
-    backgroundColor: 'transparent',
-    border: 0,
-  },
-}));
+const useStyles = makeStyles(() =>
+  createStyles({
+    paperRoot: {
+      backgroundColor: 'transparent',
+      border: 0,
+    },
+  })
+);
 
 function Drawer(props: any) {
   const classes = useStyles();
@@ -45,7 +47,7 @@ function Drawer(props: any) {
 function Map() {
   if (!Keys.GOOGLE_MAPS_KEY) {
     // TODO: validate envs separately
-    throw new Error("Missing Google Maps API key");
+    throw new Error('Missing Google Maps API key');
   }
 
   // let setCenter: (center: any) => void;
@@ -62,7 +64,7 @@ function Map() {
 
   return (
     <Base>
-      <main style={{height: 'calc(100vh - 64px)'}}>
+      <main style={{ height: 'calc(100vh - 64px)' }}>
         <Drawer anchor="bottom" open={drawerOpen} variant="persistent">
           <Card onClose={() => setDrawerOpen(false)} />
         </Drawer>

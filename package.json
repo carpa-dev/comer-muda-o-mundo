@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
+    "format-check": "prettier --check **/*.{js,ts,tsx}",
+    "format-fix": "prettier --write **/*.{js,ts,tsx}",
     "build": "next build",
     "start": "next start",
     "now-build": "next build",
