@@ -2,11 +2,10 @@ import NoSsr from '@material-ui/core/NoSsr';
 import GoogleMapReact from 'google-map-react';
 import '../style.css';
 import Keys from '../config/keys';
-import Dialog from '@material-ui/core/Dialog';
 import {useState} from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import {Marker, Navbar} from '../components';
-import Base from './_Base.tsx';
+import {Marker} from '../components';
+import Base from './_Base';
 
 const mapsProps = {
   center: {
@@ -18,6 +17,11 @@ const mapsProps = {
 
 function Map() {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  if (!Keys.GOOGLE_MAPS_KEY) {
+    // TODO: validate envs separately
+    throw new Error("Missing Google Maps API key");
+  }
 
   return (
     <Base>
@@ -55,4 +59,5 @@ function Map() {
     </Base>
   );
 }
+
 export default Map;
