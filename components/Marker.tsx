@@ -9,7 +9,7 @@ function Marker(props: {
 }) {
   return (
     <IconButton size="small" onClick={props.onClick}>
-      <Place style={{fontSize: '48px'}} />
+      <Place style={{ fontSize: '48px' }} />
     </IconButton>
   );
 }
