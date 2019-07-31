@@ -19,5 +19,10 @@
   ],
   "env": {
     "ENV_PATH": "now.env"
+  },
+  "build": {
+    "env": {
+      "GOOGLE_MAPS_KEY": "@google_maps_key"
+    }
   }
 }
