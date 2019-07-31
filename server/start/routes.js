@@ -33,3 +33,9 @@ Route.group(() => {
 })
   .prefix("/api/v1")
   .middleware(["auth"]);
+
+Route.get("/", () => {
+  return {
+    hello: "world"
+  };
+});
