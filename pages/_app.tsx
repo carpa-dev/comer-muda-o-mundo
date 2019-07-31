@@ -2,8 +2,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import NextApp, { Container } from 'next/app';
 import React from 'react';
-
-import theme from './theme';
+import theme from '../config/theme';
 
 class App extends NextApp {
   componentDidMount() {

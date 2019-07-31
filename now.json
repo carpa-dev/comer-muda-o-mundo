@@ -1,4 +1,28 @@
 {
   "version": 2,
-  "builds": [{"src": "package.json", "use": "@now/next"}]
+  "builds": [
+    { "src": "package.json", "use": "@now/next" },
+    {
+      "src": "/server/server.js",
+      "use": "@now/node-server",
+      "config": {
+        "includeFiles": ["**"],
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server/server.js"
+    }
+  ],
+  "env": {
+    "ENV_PATH": "now.env"
+  },
+  "build": {
+    "env": {
+      "GOOGLE_MAPS_KEY": "@google_maps_key"
+    }
+  }
 }
