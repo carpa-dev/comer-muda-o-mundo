@@ -4,7 +4,7 @@
   "description": ":)",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "cross-env NODE_ENV=development PORT=3000 node server.js",
     "format-check": "prettier --check **/*.{js,ts,tsx}",
     "format-fix": "prettier --write **/*.{js,ts,tsx}",
     "build": "next build",
@@ -34,6 +34,9 @@
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.22",
     "@types/react-dom": "^16.8.4",
+    "cross-env": "^5.2.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^0.19.1",
     "now": "^15.6.2",
     "prettier": "^1.18.2",
     "typescript": "^3.5.3"

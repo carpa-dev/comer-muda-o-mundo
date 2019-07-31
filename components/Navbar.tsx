@@ -32,7 +32,7 @@ const defaultLinks = [
   { href: '#', label: 'Iniciativas' },
 ];
 
-const adminLinks = [{ href: '#', label: 'o_o' }];
+const adminLinks = [{ href: '#', label: '' }];
 
 interface NavbarProps {
   admin?: boolean;
