@@ -8,7 +8,7 @@ import cookie from 'js-cookie';
 import { useState, FormEvent } from 'react';
 
 import { login } from '../../api/auth';
-import { Navbar } from '../../components';
+import { Navbar, LoadingButton } from '../../components';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     input: {
       marginBottom: `${theme.spacing(2)}px`,
     },
+    loading: {},
   })
 );
 
@@ -76,14 +77,16 @@ function AdminLogin() {
                 fullWidth
                 required
               />
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                disabled={loading}
-              >
-                Entrar
-              </Button>
+              <LoadingButton loading={loading}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  color="primary"
+                  variant="contained"
+                >
+                  Entrar
+                </Button>
+              </LoadingButton>
             </form>
           </CardContent>
         </Card>
