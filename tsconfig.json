@@ -25,7 +25,11 @@
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "esnext"
+    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./components/*"]
+    }
   },
   "exclude": [
     "node_modules"
@@ -34,5 +38,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ]
+  ],
+
 }
