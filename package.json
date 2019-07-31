@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "now-build": "next build",
-    "now": "now"
+    "now": "now",
+    "deploy": "now -e APP_KEY=@app_key -e DATABASE_URL=@database_url -e DB_CONNECTION=@db_connection -e GOOGLE_MAPS_KEY=@google_maps_key"
   },
   "author": "",
   "license": "MIT",

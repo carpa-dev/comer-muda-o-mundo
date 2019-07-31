@@ -4,7 +4,7 @@ import NextApp, { Container } from 'next/app';
 import React from 'react';
 
 import { Navbar } from '../components';
-import theme from './theme';
+import theme from '../config/theme';
 
 class App extends NextApp {
   componentDidMount() {
