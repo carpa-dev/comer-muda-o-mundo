@@ -16,17 +16,41 @@
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import React from 'react';
+// import PropTypes from 'prop-types';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 
-function LoadingButton(props: { loading: boolean; children: any }) {
+function LoadingButton(props: { loading: boolean } & ButtonProps) {
   const classes = useStyles();
+  const { loading, fullWidth, style, ...buttonProps } = props;
 
   return (
-    <div className={classes.wrapper} style={wrapperStyle(props.children)}>
-      {renderLoading(props.loading, classes.loading)}
-      {withStyle(props.children, buttonStyles(props.loading))}
+    <div className={classes.wrapper} style={wrapperStyle(fullWidth)}>
+      {loading && (
+        <div className={classes.loading}>
+          <LinearProgress />
+        </div>
+      )}
+      <Button
+        style={{ ...style, ...buttonStyles(loading) }}
+        fullWidth={fullWidth}
+        disabled={loading}
+        {...buttonProps}
+      />
     </div>
   );
 }
+
+// function childrenOf(...types: any) {
+//   let fieldType = PropTypes.shape({
+//     type: PropTypes.oneOf(types),
+//   });
+
+//   return PropTypes.oneOfType([fieldType, PropTypes.arrayOf(fieldType)]);
+// }
+
+// LoadingButton.propTypes = {
+//   children: childrenOf(Button).isRequired,
+// };
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -46,8 +70,8 @@ const useStyles = makeStyles(() =>
  * Helpers
  */
 // wrapper needs to grow when button is full width (aka width: 100)
-function wrapperStyle(children: any) {
-  if (children.props.fullWidth) {
+function wrapperStyle(fullWidth: boolean | undefined) {
+  if (fullWidth) {
     return {
       width: '100%',
     };
@@ -57,29 +81,18 @@ function wrapperStyle(children: any) {
   };
 }
 
-// only render loading when it's actually loading
-function renderLoading(loading: boolean, classes: any) {
-  return loading ? (
-    <div className={classes}>
-      <LinearProgress />
-    </div>
-  ) : (
-    ''
-  );
-}
-
 // simple wrapper to simplify render method
-function withStyle(children: any, styles: any) {
-  return React.cloneElement(children, {
-    style: styles,
-  });
-}
+// function withStyle(children: any, styles: any) {
+//   return React.cloneElement(children, {
+//     style: styles,
+//   });
+// }
 
 // button is still kept in the dom, just hidden from user
 function buttonStyles(loading: boolean) {
   if (loading) {
     return {
-      visibility: 'hidden',
+      visibility: 'hidden' as any,
     };
   } else {
     return {};
