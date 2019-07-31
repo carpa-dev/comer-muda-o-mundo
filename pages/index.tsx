@@ -3,7 +3,7 @@ import NoSsr from '@material-ui/core/NoSsr';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import GoogleMapReact from 'google-map-react';
 import { useState } from 'react';
-import { Card, Marker } from '../components';
+import { Card, Marker, Navbar } from '../components';
 import Keys from '../config/keys';
 import '../style.css';
 
@@ -62,29 +62,32 @@ function Map() {
   };
 
   return (
-    <main style={{ height: 'calc(100vh - 64px)' }}>
-      <Drawer anchor="bottom" open={drawerOpen} variant="persistent">
-        <Card onClose={() => setDrawerOpen(false)} />
-      </Drawer>
-      <NoSsr>
-        <GoogleMapReact
-          bootstrapURLKeys={{
-            key: Keys.GOOGLE_MAPS_KEY,
-          }}
-          defaultZoom={mapsProps.zoom}
-          defaultCenter={mapsProps.center}
-          // onGoogleApiLoaded={({ map, maps }) => handleAPILoaded(map, maps)}
-          yesIWantToUseGoogleMapApiInternals
-        >
-          <Marker
-            onClick={onMarkerClick}
-            lat={mapsProps.center.lat}
-            lng={mapsProps.center.lng}
-            text="my market"
-          />
-        </GoogleMapReact>
-      </NoSsr>
-    </main>
+    <>
+      <Navbar />
+      <main style={{ height: 'calc(100vh - 64px)' }}>
+        <Drawer anchor="bottom" open={drawerOpen} variant="persistent">
+          <Card onClose={() => setDrawerOpen(false)} />
+        </Drawer>
+        <NoSsr>
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: Keys.GOOGLE_MAPS_KEY,
+            }}
+            defaultZoom={mapsProps.zoom}
+            defaultCenter={mapsProps.center}
+            // onGoogleApiLoaded={({ map, maps }) => handleAPILoaded(map, maps)}
+            yesIWantToUseGoogleMapApiInternals
+          >
+            <Marker
+              onClick={onMarkerClick}
+              lat={mapsProps.center.lat}
+              lng={mapsProps.center.lng}
+              text="my market"
+            />
+          </GoogleMapReact>
+        </NoSsr>
+      </main>
+    </>
   );
 }
 

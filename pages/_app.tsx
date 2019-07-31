@@ -3,7 +3,6 @@ import { ThemeProvider } from '@material-ui/styles';
 import NextApp, { Container } from 'next/app';
 import React from 'react';
 
-import { Navbar } from '../components';
 import theme from './theme';
 
 class App extends NextApp {
@@ -23,7 +22,6 @@ class App extends NextApp {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Navbar />
           <Component {...pageProps} />
         </ThemeProvider>
       </Container>
