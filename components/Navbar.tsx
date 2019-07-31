@@ -25,8 +25,22 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-function Navbar() {
+
+const defaultLinks = [
+  { href: '#', label: 'Mapa' },
+  { href: '#', label: 'Quem somos' },
+  { href: '#', label: 'Iniciativas' },
+];
+
+const adminLinks = [{ href: '#', label: 'o_o' }];
+
+interface NavbarProps {
+  admin?: boolean;
+}
+
+function Navbar({ admin }: NavbarProps) {
   const classes = useStyles();
+  const links = admin ? adminLinks : defaultLinks;
 
   return (
     <AppBar position="static" className={classes.appBar}>
@@ -40,32 +54,17 @@ function Navbar() {
           Comer muda o mundo
         </Typography>
 
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}
-        >
-          Quem Somos
-        </Link>
-
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}
-        >
-          Mapa
-        </Link>
-
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}
-        >
-          Iniciativas
-        </Link>
+        {links.map(link => (
+          <Link
+            key={link.href}
+            variant="button"
+            color="inherit"
+            href={link.href}
+            className={classes.link}
+          >
+            {link.label}
+          </Link>
+        ))}
       </Toolbar>
     </AppBar>
   );
