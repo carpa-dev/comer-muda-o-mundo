@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -14,28 +14,27 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use("Route");
+const Route = use('Route');
 
 // public
 Route.group(() => {
-  Route.post("/auth/register", "AuthController.register");
-  Route.post("/auth/login", "AuthController.login");
+  Route.post('/auth/register', 'AuthController.register');
+  Route.post('/auth/login', 'AuthController.login');
 
-  Route.resource("/producers", "ProducerController").only(["index", "show"]);
-}).prefix("/api/v1");
+  Route.resource('/producers', 'ProducerController').only(['index', 'show']);
+}).prefix('/api/v1');
 
 // protected
 Route.group(() => {
-  Route.resource("/producers", "Admin/ProducerController").except([
-    "index",
-    "show"
+  Route.resource('/producers', 'Admin/ProducerController').except([
+    'index',
+    'show',
   ]);
-})
-  .prefix("/api/v1")
-  .middleware(["auth"]);
+}).prefix('/api/v1');
+// .middleware(["auth"]);
 
-Route.get("/", () => {
+Route.get('/', () => {
   return {
-    hello: "world"
+    hello: 'world',
   };
 });

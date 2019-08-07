@@ -1,4 +1,4 @@
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -77,15 +77,14 @@ function AdminLogin() {
                 fullWidth
                 required
               />
-              <LoadingButton loading={loading}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  color="primary"
-                  variant="contained"
-                >
-                  Entrar
-                </Button>
+              <LoadingButton
+                loading={loading}
+                type="submit"
+                fullWidth
+                color="primary"
+                variant="contained"
+              >
+                Entrar
               </LoadingButton>
             </form>
           </CardContent>

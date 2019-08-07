@@ -16,7 +16,6 @@
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import React from 'react';
-// import PropTypes from 'prop-types';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 
 function LoadingButton(props: { loading: boolean } & ButtonProps) {
@@ -39,18 +38,6 @@ function LoadingButton(props: { loading: boolean } & ButtonProps) {
     </div>
   );
 }
-
-// function childrenOf(...types: any) {
-//   let fieldType = PropTypes.shape({
-//     type: PropTypes.oneOf(types),
-//   });
-
-//   return PropTypes.oneOfType([fieldType, PropTypes.arrayOf(fieldType)]);
-// }
-
-// LoadingButton.propTypes = {
-//   children: childrenOf(Button).isRequired,
-// };
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -80,13 +67,6 @@ function wrapperStyle(fullWidth: boolean | undefined) {
     display: 'inline-block',
   };
 }
-
-// simple wrapper to simplify render method
-// function withStyle(children: any, styles: any) {
-//   return React.cloneElement(children, {
-//     style: styles,
-//   });
-// }
 
 // button is still kept in the dom, just hidden from user
 function buttonStyles(loading: boolean) {
