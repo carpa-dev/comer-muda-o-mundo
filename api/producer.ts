@@ -4,8 +4,20 @@ import * as yup from 'yup';
 export const NewProducerSchema = yup.object({
   name: yup.string().required(),
   address: yup.string().required(),
-  latitude: yup.number().required(),
-  longitude: yup.number().required(),
+
+  // do monte caburaí até o chuí
+  latitude: yup
+    .number()
+    .required()
+    .max(5)
+    .min(-34),
+
+  // de ilhas martin vaz até serra do divisor
+  longitude: yup
+    .number()
+    .required()
+    .max(-29)
+    .min(-74),
 });
 
 export const ProducerSchema = yup.object({
