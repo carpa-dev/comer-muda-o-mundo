@@ -9,9 +9,11 @@
     "format-fix": "prettier --write **/*.{js,ts,tsx}",
     "build": "next build",
     "start": "next start",
+    "next": "next",
     "now-build": "next build",
     "now": "now",
-    "deploy": "now -e APP_KEY=@app_key -e DATABASE_URL=@database_url -e DB_CONNECTION=@db_connection -e GOOGLE_MAPS_KEY=@google_maps_key"
+    "deploy": "now -e APP_KEY=@app_key -e DATABASE_URL=@database_url -e DB_CONNECTION=@db_connection -e GOOGLE_MAPS_KEY=@google_maps_key",
+    "proxy": "lcp --proxyUrl http://office:3333"
   },
   "author": "",
   "license": "MIT",
@@ -21,6 +23,7 @@
     "@react-google-maps/api": "^1.5.4",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.0",
+    "formik": "^1.5.8",
     "google-map-react": "^1.1.4",
     "js-cookie": "^2.2.0",
     "next": "^9.0.0",
@@ -43,6 +46,7 @@
     "cross-env": "^5.2.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.19.1",
+    "local-cors-proxy": "^1.0.2",
     "now": "^15.6.2",
     "prettier": "^1.18.2",
     "typescript": "^3.5.3"

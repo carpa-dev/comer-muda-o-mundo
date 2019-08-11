@@ -1,5 +1,5 @@
-import axios from 'axios';
 import * as yup from 'yup';
+import { axios } from './axios';
 
 export const NewProducerSchema = yup.object({
   name: yup.string().required(),
@@ -34,7 +34,10 @@ type NewProducer = yup.InferType<typeof NewProducerSchema>;
 type Producer = yup.InferType<typeof ProducerSchema>;
 
 export function create(data: NewProducer): Promise<Producer> {
-  return axios
-    .post('/api/v1/producers', data)
-    .then(res => ProducerSchema.validate(res.data));
+  return NewProducerSchema.validate(data).then((value: NewProducer) => {
+    return axios.post('/api/v1/producers', value).then(res => {
+      debugger;
+      return ProducerSchema.validate(res.data);
+    });
+  });
 }

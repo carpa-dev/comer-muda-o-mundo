@@ -1,14 +1,35 @@
-import { Navbar, LoadingButton } from '@components/index';
-import { Container, TextField, Theme } from '@material-ui/core';
-import { useState, ChangeEvent, FormEvent, useRef } from 'react';
+import { Navbar, LoadingButton, ErrorSnackbar } from '@components/index';
+import { Container, TextField, Theme, Grid } from '@material-ui/core';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import { makeStyles, createStyles } from '@material-ui/styles';
-import Keys from '../../../config/keys';
 import * as ProducerAPI from '@api/producer';
 import Router from 'next/router';
-import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 import './new.css';
+import { SearchBar } from './_SearchBar';
+import * as yup from 'yup';
+import { Formik, FormikTouched, FormikErrors } from 'formik';
 
-const useStyles = makeStyles((theme: Theme) =>
+export const NewProducerSchema = yup.object({
+  name: yup.string().required(),
+  address: yup.string().required(),
+
+  // do monte caburaí até o chuí
+  latitude: yup
+    .number()
+    .required()
+    .max(5)
+    .min(-34),
+
+  // de ilhas martin vaz até serra do divisor
+  longitude: yup
+    .number()
+    .required()
+    .max(-29)
+    .min(-74),
+});
+type NewProducer = yup.InferType<typeof NewProducerSchema>;
+
+const useStyles = makeStyles(() =>
   createStyles({
     container: {
       display: 'flex',
@@ -27,207 +48,148 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface AddressChanged {
-  address: string;
-  latitude: number;
-  longitude: number;
-}
-
 function NewProducer() {
   const classes = useStyles();
-
-  const [values, setValues] = useState({
-    form: {
-      name: '',
-      address: '',
-      latitude: 0,
-      longitude: 0,
-    },
-    addressSearch: undefined,
-
-    submitting: false,
-  });
-
-  const handleChange = (name: string) => (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    setValues({
-      ...values,
-      form: {
-        ...values.form,
-        [name]: event.target.value,
-      },
-    });
-  };
-
-  const onPlaceChanged = (a: AddressChanged) => {
-    setValues({
-      ...values,
-      form: {
-        ...values.form,
-        ...a,
-      },
-    });
-  };
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    setValues({
-      ...values,
-      submitting: true,
-    });
-
-    ProducerAPI.NewProducerSchema.validate(values.form)
-      .then(value => {
-        console.log(value);
-
-        return ProducerAPI.create(value);
-      })
-      .then(res => {
-        console.log('response is', res);
-
-        setValues({
-          ...values,
-          submitting: false,
-        });
-
-        Router.push('/admin/producers');
-      })
-      .catch(e => {
-        setValues({
-          ...values,
-          submitting: false,
-        });
-
-        // TODO: show error
-        //validation error
-        console.error(e);
-      });
-  };
 
   return (
     <>
       <Navbar admin />
       <Container>
-        <form
-          onSubmit={onSubmit}
-          noValidate
-          autoComplete="off"
-          className={classes.container}
+        <Formik
+          initialValues={{
+            name: '',
+            address: '',
+            latitude: -9999,
+            longitude: -9999,
+          }}
+          validationSchema={NewProducerSchema}
+          onSubmit={(newProducer: NewProducer) => {
+            return ProducerAPI.create(newProducer).then(res => {
+              Router.push('/admin/producers');
+            });
+          }}
         >
-          <TextField
-            id="input-name"
-            label="Nome"
-            required
-            value={values.form.name}
-            onChange={handleChange('name')}
-            margin="normal"
-            fullWidth
-          />
+          {({
+            values,
+            handleChange,
+            errors,
+            touched,
+            handleSubmit,
+            isSubmitting,
+            setSubmitting,
+            setFieldValue,
+          }) => (
+            <form
+              onSubmit={async r => {
+                await handleSubmit(r);
 
-          <div className="search-bar-wrapper">
-            <SearchBar onPlaceChanged={onPlaceChanged}></SearchBar>
-          </div>
+                setSubmitting(false);
+              }}
+              noValidate
+              autoComplete="off"
+              className={classes.container}
+            >
+              <TextField
+                id="input-name"
+                name="name"
+                label="Nome"
+                required
+                value={values.name}
+                error={!!(touched.name && errors.name)}
+                onChange={handleChange}
+                margin="normal"
+                helperText={mountErrMsg(touched, errors, 'name')}
+                fullWidth
+              />
 
-          <TextField
-            id="input-address"
-            label="Endereço Amigável"
-            value={values.form.address}
-            required
-            onInput={handleChange('address')}
-            margin="normal"
-            helperText="Que será mostrado ao usuário"
-            fullWidth
-          />
+              <div className="search-bar-wrapper">
+                <SearchBar
+                  onPlaceChanged={v => {
+                    setFieldValue('latitude', v.latitude);
+                    setFieldValue('longitude', v.longitude);
+                    setFieldValue('address', v.address);
+                  }}
+                ></SearchBar>
+              </div>
 
-          <TextField
-            id="input-latitude"
-            label="Latitude"
-            value={values.form.latitude}
-            required
-            margin="normal"
-            disabled
-          />
+              <TextField
+                id="address"
+                label="Endereço Amigável"
+                value={values.address}
+                required
+                onChange={handleChange}
+                error={!!(touched.address && errors.address)}
+                margin="normal"
+                helperText={mountErrMsg(
+                  touched,
+                  errors,
+                  'address',
+                  'Que será mostrado ao usuário'
+                )}
+                fullWidth
+              />
 
-          <TextField
-            id="input-longitude"
-            label="Longitude"
-            value={values.form.longitude}
-            required
-            margin="normal"
-            disabled
-          />
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <TextField
+                    id="input-latitude"
+                    label="Latitude"
+                    value={values.latitude}
+                    error={!!(touched.latitude && errors.latitude)}
+                    helperText={mountErrMsg(touched, errors, 'latitude')}
+                    required
+                    margin="normal"
+                    disabled
+                    fullWidth
+                  />
+                </Grid>
 
-          <LoadingButton
-            loading={values.submitting}
-            type="submit"
-            fullWidth
-            color="primary"
-            variant="contained"
-          >
-            Salvar
-          </LoadingButton>
-        </form>
+                <Grid item xs={6}>
+                  <TextField
+                    id="input-longitude"
+                    label="Longitude"
+                    value={values.longitude}
+                    error={!!(touched.longitude && errors.longitude)}
+                    helperText={mountErrMsg(touched, errors, 'longitude')}
+                    required
+                    margin="normal"
+                    disabled
+                    fullWidth
+                  />
+                </Grid>
+              </Grid>
+
+              <LoadingButton
+                loading={isSubmitting}
+                type="submit"
+                fullWidth
+                color="primary"
+                variant="contained"
+              >
+                Salvar
+              </LoadingButton>
+            </form>
+          )}
+        </Formik>
       </Container>
     </>
   );
 }
 
-function SearchBar(props: { onPlaceChanged: (data: AddressChanged) => void }) {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: Keys.GOOGLE_MAPS_KEY,
-    libraries: ['places'],
-  });
-
-  const [myRef, setRef] = useState<google.maps.places.Autocomplete | unknown>();
-
-  const onPlaceChanged = () => {
-    const r = myRef as google.maps.places.Autocomplete;
-
-    if (
-      !r.getPlace() ||
-      !r.getPlace().geometry ||
-      !r.getPlace().geometry!.location ||
-      !r.getPlace().formatted_address
-    ) {
-      throw new Error(
-        'Either Latitude/longitude or formatted_address is not defined'
-      );
-    } else {
-      const latitude = r.getPlace()!.geometry!.location.lat();
-      const longitude = r.getPlace()!.geometry!.location.lng();
-      const address = r.getPlace().formatted_address!;
-
-      props.onPlaceChanged({
-        latitude,
-        longitude,
-        address,
-      });
-    }
-  };
-
-  const renderSearchBar = () => {
-    return (
-      <Autocomplete
-        onLoad={ref => {
-          setRef(ref);
-        }}
-        onPlaceChanged={onPlaceChanged}
-        restrictions={{ country: ['br'] }}
-      >
-        <TextField
-          id="input-address-search"
-          label="Buscar endereço"
-          fullWidth
-          margin="normal"
-          type="search"
-        />
-      </Autocomplete>
-    );
-  };
-
-  return isLoaded ? renderSearchBar() : null;
-}
-
 export default NewProducer;
+
+function mountErrMsg(
+  touched: FormikTouched<NewProducer>,
+  errors: FormikErrors<NewProducer>,
+  name: keyof NewProducer,
+  defaultMsg = ' '
+) {
+  // return defaultMessage except when there's no an error
+  // otherwise everytime error shows up
+  // the content will be shifted
+  if (touched[name] && errors[name]) {
+    return errors[name];
+  }
+
+  return defaultMsg;
+}
