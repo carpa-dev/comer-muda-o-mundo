@@ -25,12 +25,13 @@
     "axios": "^0.19.0",
     "formik": "^1.5.8",
     "google-map-react": "^1.1.4",
-    "js-cookie": "^2.2.0",
+    "js-cookie": "^2.2.1",
     "next": "^9.0.0",
     "next-cookies": "^1.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "recompose": "^0.30.0",
+    "true-myth": "^3.0.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {

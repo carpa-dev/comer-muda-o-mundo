@@ -30,11 +30,12 @@ Route.group(() => {
     'index',
     'show',
   ]);
-}).prefix('/api/v1');
-// .middleware(["auth"]);
+})
+  .prefix('/api/v1')
+  .middleware(['auth']);
 
 Route.get('/', () => {
   return {
     hello: 'world',
   };
-});
+}).middleware(['auth']);

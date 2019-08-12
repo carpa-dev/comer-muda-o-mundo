@@ -8,6 +8,7 @@ import './new.css';
 import { SearchBar } from './_SearchBar';
 import * as yup from 'yup';
 import { Formik, FormikTouched, FormikErrors } from 'formik';
+import withAuth from '@app/containers/withAuth';
 
 export const NewProducerSchema = yup.object({
   name: yup.string().required(),
@@ -176,7 +177,7 @@ function NewProducer() {
   );
 }
 
-export default NewProducer;
+export default withAuth(NewProducer);
 
 function mountErrMsg(
   touched: FormikTouched<NewProducer>,

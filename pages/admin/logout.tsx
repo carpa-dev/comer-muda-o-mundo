@@ -1,16 +1,17 @@
-import cookie from 'js-cookie';
 import { useEffect } from 'react';
+import { logout } from '@api/index';
 
 import withAuth from '../../containers/withAuth';
 
-function logout() {
-  cookie.remove('token');
-  // TODO: add local storage check
-  window.localStorage.setItem('logout', Date.now().toString());
-}
-
 function AdminLogout() {
-  useEffect(logout);
+  useEffect(() => {
+    logout();
+
+    // For some reason
+    // Router.push('/') doesn't work
+    // see https://github.com/zeit/next.js/issues/5947
+    window.location.href = '/';
+  });
   return null;
 }
 

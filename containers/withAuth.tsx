@@ -23,6 +23,9 @@ function auth(ctx: DocumentContext) {
     Router.push('/admin/login');
   }
 
+  // TODO:
+  // check it has not expired
+
   return token;
 }
 

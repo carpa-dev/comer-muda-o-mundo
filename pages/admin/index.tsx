@@ -8,16 +8,15 @@ function AdminHome() {
   return (
     <>
       <Navbar admin />
-      <div>admin goes here xd cachorro</div>
+      <div>admin goes here</div>
     </>
   );
 }
 
-AdminHome.getInitialProps = async (ctx: DocumentContext) => {
-  const { token } = cookies(ctx);
-  console.log(token);
-  return { token };
-};
+// AdminHome.getInitialProps = async (ctx: DocumentContext) => {
+//   const { token } = cookies(ctx);
+//   return { token };
+// };
 
 // export default AdminHome;
 export default withAuth(AdminHome);

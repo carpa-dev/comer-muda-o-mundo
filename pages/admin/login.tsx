@@ -4,11 +4,12 @@ import CardContent from '@material-ui/core/CardContent';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import cookie from 'js-cookie';
 import { useState, FormEvent } from 'react';
 
-import { login } from '../../api/auth';
+import { login, saveAuthToken } from '../../api/auth';
 import { Navbar, LoadingButton } from '../../components';
+import Router from 'next/router';
+import withGuest from '@app/containers/withGuest';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,8 +40,12 @@ function AdminLogin() {
     login({ uid, password })
       .then((res: any) => {
         setLoading(false);
-        console.log(res);
-        cookie.set('token', res.data.token, { expires: 1 });
+
+        saveAuthToken(res.data);
+
+        // TODO:
+        // redirect to where it was trying to go
+        Router.push('/admin');
       })
       .catch(() => setLoading(false));
   };
@@ -94,4 +99,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default withGuest(AdminLogin);

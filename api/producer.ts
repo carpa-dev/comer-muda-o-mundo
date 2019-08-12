@@ -36,7 +36,6 @@ type Producer = yup.InferType<typeof ProducerSchema>;
 export function create(data: NewProducer): Promise<Producer> {
   return NewProducerSchema.validate(data).then((value: NewProducer) => {
     return axios.post('/api/v1/producers', value).then(res => {
-      debugger;
       return ProducerSchema.validate(res.data);
     });
   });

@@ -1,5 +1,5 @@
 import { ErrorSnackbar } from '@components/index';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { axios } from '@api/axios';
 
 // TODO
@@ -10,15 +10,17 @@ export default function ErrorComponent() {
     error: '',
   });
 
-  axios.interceptors.response.use(
-    res => res,
-    (error: Error) => {
-      setValues({ error: `${error}` });
+  useEffect(() => {
+    axios.interceptors.response.use(
+      res => res,
+      (error: Error) => {
+        setValues({ error: `${error}` });
 
-      // so that the callers deal with the error themselves
-      return Promise.reject(error);
-    }
-  );
+        // so that the callers deal with the error themselves
+        return Promise.reject(error);
+      }
+    );
+  }, []);
 
   return (
     <ErrorSnackbar
