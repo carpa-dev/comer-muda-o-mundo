@@ -1,36 +1,35 @@
-import { Navbar } from '@components/index';
 import {
-  Container,
+  Fab,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
   Theme,
-  Breadcrumbs,
   Typography,
 } from '@material-ui/core';
-import withAuth from '@app/containers/withAuth';
-import { useEffect, useState } from 'react';
-import { getAll, Producer } from '@api/producer';
-import Table from '@material-ui/core/Table';
-import Paper from '@material-ui/core/Paper';
-import Fab from '@material-ui/core/Fab';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles, createStyles } from '@material-ui/styles';
+import Head from 'next/head';
 import Link from 'next/link';
-import { Link as MuiLink } from '@material-ui/core';
-import './index.css';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { useEffect, useState } from 'react';
+
+import { getAll, Producer } from '@api/producer';
+import AdminPage from '@components/AdminPage';
+import Breadcrumbs from '@components/Breadcrumbs';
+import withAuth from '@containers/withAuth';
+import '@styles/dummy.css';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    paper: {
+      padding: theme.spacing(2),
+    },
     fab: {
+      position: 'fixed',
       right: theme.spacing(2),
       bottom: theme.spacing(2),
-      position: 'fixed',
-    },
-    breadcrumbPaper: {
-      padding: theme.spacing(1, 2),
     },
   })
 );
@@ -48,7 +47,7 @@ function ProducerIndex() {
 
   const renderRows = () => {
     if (!loaded) {
-      return <></>;
+      return null;
     }
 
     if (producers && producers.length > 0) {
@@ -62,54 +61,52 @@ function ProducerIndex() {
 
     return (
       <TableRow>
-        <TableCell>No data yet</TableCell>
+        <TableCell>Nenhum resultado.</TableCell>
       </TableRow>
     );
   };
 
   return (
-    <>
-      <Navbar admin />
+    <AdminPage>
+      <Head>
+        <title>Iniciativas - Comer muda o mundo</title>
+      </Head>
 
-      <Container>
-        <Paper className={classes.breadcrumbPaper}>
-          <Breadcrumbs
-            separator={<NavigateNextIcon fontSize="small" />}
-            aria-label="breadcrumb"
-          >
-            <Link href="/admin">
-              <MuiLink>Admin</MuiLink>
-            </Link>
+      <Paper className={classes.paper}>
+        <Breadcrumbs
+          aria-label="Breadcrumb"
+          items={[
+            { href: '/admin', label: 'Admin' },
+            { href: '/admin/producers', label: 'Iniciativas' },
+          ]}
+        />
 
-            <Link href="/admin/producers">
-              <MuiLink>Producers</MuiLink>
-            </Link>
-          </Breadcrumbs>
+        <Typography component="h1" variant="h4" gutterBottom>
+          Iniciativas
+        </Typography>
 
-          <Typography variant="h4" gutterBottom>
-            Producers
-          </Typography>
-        </Paper>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Nome</TableCell>
+              <TableCell>Endereço</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{renderRows()}</TableBody>
+        </Table>
+      </Paper>
 
-        <Paper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Address</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>{renderRows()}</TableBody>
-          </Table>
-        </Paper>
-
-        <Link href="/admin/producers/new">
-          <Fab color="primary" aria-label="add" className={classes.fab}>
-            <AddIcon />
-          </Fab>
-        </Link>
-      </Container>
-    </>
+      <Link href="/admin/producers/new">
+        <Fab
+          component="a"
+          color="primary"
+          aria-label="Criar iniciativa"
+          className={classes.fab}
+        >
+          <AddIcon />
+        </Fab>
+      </Link>
+    </AdminPage>
   );
 }
 
