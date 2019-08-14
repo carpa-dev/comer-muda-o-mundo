@@ -1,28 +1,31 @@
-// import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import Head from 'next/head';
+import Router from 'next/router';
 import { useState, FormEvent } from 'react';
 
-import { login, saveAuthToken } from '../../api/auth';
-import { Navbar, LoadingButton } from '../../components';
-import Router from 'next/router';
-import withGuest from '@app/containers/withGuest';
+import { login, saveAuthToken } from '@api/auth';
+import AdminPage from '@components/AdminPage';
+import LoadingButton from '@components/LoadingButton';
+import withGuest from '@containers/withGuest';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    title: {
+      marginBottom: `${theme.spacing(2)}px`,
+    },
     card: {
       width: '100%',
       maxWidth: 400,
       minHeight: 200,
-      margin: `${theme.spacing(3)}px auto`,
+      margin: 'auto',
     },
     input: {
       marginBottom: `${theme.spacing(2)}px`,
     },
-    loading: {},
   })
 );
 
@@ -36,7 +39,9 @@ function AdminLogin() {
     if (event) {
       event.preventDefault();
     }
+
     setLoading(true);
+
     login({ uid, password })
       .then((res: any) => {
         setLoading(false);
@@ -51,51 +56,56 @@ function AdminLogin() {
   };
 
   return (
-    <>
-      <Navbar admin />
-      <main>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography component="h1" variant="h6" gutterBottom>
-              Login
-            </Typography>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                id="uid"
-                label="Email ou usuário"
-                value={uid}
-                onChange={event => setUid(event.target.value)}
-                className={classes.input}
-                variant="outlined"
-                autoFocus
-                fullWidth
-                required
-              />
-              <TextField
-                id="password"
-                label="Senha"
-                type="password"
-                value={password}
-                onChange={event => setPassword(event.target.value)}
-                className={classes.input}
-                variant="outlined"
-                fullWidth
-                required
-              />
-              <LoadingButton
-                loading={loading}
-                type="submit"
-                fullWidth
-                color="primary"
-                variant="contained"
-              >
-                Entrar
-              </LoadingButton>
-            </form>
-          </CardContent>
-        </Card>
-      </main>
-    </>
+    <AdminPage>
+      <Head>
+        <title>Login - Comer muda o mundo</title>
+      </Head>
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography
+            component="h1"
+            variant="h6"
+            className={classes.title}
+            gutterBottom
+          >
+            Login
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              id="uid"
+              label="Email ou usuário"
+              variant="outlined"
+              className={classes.input}
+              value={uid}
+              onChange={event => setUid(event.target.value)}
+              autoFocus
+              fullWidth
+              required
+            />
+            <TextField
+              id="password"
+              label="Senha"
+              variant="outlined"
+              type="password"
+              className={classes.input}
+              value={password}
+              onChange={event => setPassword(event.target.value)}
+              fullWidth
+              required
+            />
+            <LoadingButton
+              color="primary"
+              variant="contained"
+              type="submit"
+              loading={loading}
+              fullWidth
+            >
+              Entrar
+            </LoadingButton>
+          </form>
+        </CardContent>
+      </Card>
+    </AdminPage>
   );
 }
 
