@@ -27,9 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const defaultLinks = [
-  { href: '#', label: 'Mapa' },
-  { href: '#', label: 'Quem somos' },
-  { href: '#', label: 'Iniciativas' },
+  { href: '/', label: 'Mapa' },
+  { href: '/quem-somos', label: 'Quem somos' },
 ];
 
 const adminLinks = [
