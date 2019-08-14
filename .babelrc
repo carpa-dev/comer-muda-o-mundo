@@ -11,7 +11,8 @@
                 "@app": ".",
                 "@api": "./api",
                 "@components": "./components",
-                "@containers": "./containers"
+                "@containers": "./containers",
+                "@styles": "./styles"
             }
         }
     ]

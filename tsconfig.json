@@ -28,7 +28,8 @@
       "@app/*": ["./*"],
       "@api/*": ["./api/*"],
       "@components/*": ["./components/*"],
-      "@containers/*": ["./containers/*"]
+      "@containers/*": ["./containers/*"],
+      "@styles/*": ["./styles/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
