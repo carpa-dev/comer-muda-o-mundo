@@ -50,6 +50,7 @@ const useStyles = makeStyles(() =>
 );
 
 function NewProducer() {
+  console.log('in new producer');
   const classes = useStyles();
 
   return (

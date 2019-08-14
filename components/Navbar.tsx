@@ -32,7 +32,12 @@ const defaultLinks = [
   { href: '#', label: 'Iniciativas' },
 ];
 
-const adminLinks = [{ href: '#', label: '' }];
+const adminLinks = [
+  {
+    href: '/admin/logout',
+    label: 'Logout',
+  },
+];
 
 interface NavbarProps {
   admin?: boolean;
@@ -43,7 +48,10 @@ function Navbar({ admin }: NavbarProps) {
   const links = admin ? adminLinks : defaultLinks;
 
   return (
-    <AppBar position="static" className={classes.appBar}>
+    <AppBar
+      position="static"
+      className={classes.appBar + ` app-navbar` + (admin ? ` admin` : '')}
+    >
       <Toolbar>
         <Typography
           variant="h6"

@@ -1,6 +1,7 @@
 import { axios } from './axios';
 import { Maybe } from 'true-myth';
 import Cookie from 'js-cookie';
+import { AxiosResponse } from 'axios';
 
 /**
  * We must store the JWT in a cookie
@@ -11,10 +12,18 @@ const TOKEN_NAME = 'token';
 interface Token {
   token: string;
   type: 'Bearer';
+  refreshToken: string;
 }
 
 export function login(data: { uid: string; password: string }) {
   return axios.post('/api/v1/auth/login', data);
+}
+
+export function refreshToken(refreshToken: string) {
+  return axios
+    .post('/api/v1/auth/refresh', { refresh_token: refreshToken })
+    .then((res: AxiosResponse) => res.data)
+    .then((token: Token) => saveAuthToken(token));
 }
 
 interface AuthHeader {

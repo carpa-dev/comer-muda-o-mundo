@@ -20,16 +20,16 @@ const Route = use('Route');
 Route.group(() => {
   Route.post('/auth/register', 'AuthController.register');
   Route.post('/auth/login', 'AuthController.login');
+  Route.post('/auth/refresh', 'AuthController.refresh');
 
-  Route.resource('/producers', 'ProducerController').only(['index', 'show']);
+  // Route.resource('/producers', 'ProducerController').only(['index', 'show']);
 }).prefix('/api/v1');
 
 // protected
+
+// payload is different whether you are logged in or not
 Route.group(() => {
-  Route.resource('/producers', 'Admin/ProducerController').except([
-    'index',
-    'show',
-  ]);
+  Route.resource('/producers', 'Admin/ProducerController');
 })
   .prefix('/api/v1')
   .middleware(['auth']);
