@@ -25,9 +25,10 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@components/*": ["./components/*"],
+      "@app/*": ["./*"],
       "@api/*": ["./api/*"],
-      "@app/*": ["./*"]
+      "@components/*": ["./components/*"],
+      "@containers/*": ["./containers/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
