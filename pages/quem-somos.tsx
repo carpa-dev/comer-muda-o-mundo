@@ -79,6 +79,7 @@ export default function AboutUs() {
 
         <Link href="/">
           <Button
+            component="a"
             variant="outlined"
             color="primary"
             size="large"
