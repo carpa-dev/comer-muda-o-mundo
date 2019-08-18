@@ -8,9 +8,11 @@
         {
             "root": ["./"],
             "alias": {
-                "@components": "./components",
+                "@app": ".",
                 "@api": "./api",
-                "@app": "."
+                "@components": "./components",
+                "@containers": "./containers",
+                "@styles": "./styles"
             }
         }
     ]
