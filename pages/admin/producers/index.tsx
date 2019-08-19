@@ -10,15 +10,17 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import { Edit, Add } from '@material-ui/icons';
 
-import { getAll, Producer } from '@api/producer';
+import { getAll } from '@api/producer';
 import AdminPage from '@components/AdminPage';
 import Breadcrumbs from '@components/Breadcrumbs';
 import withAuth from '@containers/withAuth';
+import { Producer } from '@models/producer';
 import '@styles/dummy.css';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,6 +55,13 @@ function ProducerIndex() {
     if (producers && producers.length > 0) {
       return producers.map(p => (
         <TableRow key={p.id}>
+          <TableCell>
+            <Link href="./producers/[id]" as={`./producers/${p.id}`}>
+              <IconButton>
+                <Edit fontSize="small" />
+              </IconButton>
+            </Link>
+          </TableCell>
           <TableCell>{p.name}</TableCell>
           <TableCell>{p.address}</TableCell>
         </TableRow>
@@ -88,6 +97,7 @@ function ProducerIndex() {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>Actions</TableCell>
               <TableCell>Nome</TableCell>
               <TableCell>Endereço</TableCell>
             </TableRow>
@@ -103,7 +113,7 @@ function ProducerIndex() {
           aria-label="Criar iniciativa"
           className={classes.fab}
         >
-          <AddIcon />
+          <Add />
         </Fab>
       </Link>
     </AdminPage>
