@@ -18,11 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       paddingBottom: `${theme.spacing(2)}px`,
     },
-    button: {
-      marginTop: `${theme.spacing(5)}px`,
-
-      margin: '0 auto',
-      display: 'block',
+    buttonWrapper: {
+      display: 'flex',
+      justifyContent: 'center',
+      paddingTop: `${theme.spacing(5)}px`,
     },
   })
 );
@@ -77,17 +76,18 @@ export default function AboutUs() {
           poderosa: comida de verdade com pessoas de verdade.
         </Typography>
 
-        <Link href="/">
-          <Button
-            component="a"
-            variant="outlined"
-            color="primary"
-            size="large"
-            className={classes.button}
-          >
-            Vem com a gente?
-          </Button>
-        </Link>
+        <div className={classes.buttonWrapper}>
+          <Link href="/">
+            <Button
+              component="a"
+              variant="outlined"
+              color="primary"
+              size="large"
+            >
+              Vem com a gente?
+            </Button>
+          </Link>
+        </div>
       </Container>
     </>
   );
