@@ -127,9 +127,10 @@ const navigation = [
 
 interface AdminPageProps {
   children: React.ReactNode;
+  noAuth?: boolean;
 }
 
-function AdminPage({ children }: AdminPageProps) {
+function AdminPage({ children, noAuth = false }: AdminPageProps) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -151,105 +152,111 @@ function AdminPage({ children }: AdminPageProps) {
         })}
       >
         <Toolbar>
-          <IconButton
-            aria-label="Abrir menu principal"
-            color="inherit"
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-            onClick={handleDrawerOpen}
-          >
-            <MenuIcon />
-          </IconButton>
+          {!noAuth && (
+            <IconButton
+              aria-label="Abrir menu principal"
+              color="inherit"
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+              onClick={handleDrawerOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" noWrap>
             Comer muda o mundo
           </Typography>
         </Toolbar>
       </AppBar>
 
-      <Hidden smUp>
-        <Drawer
-          variant="temporary"
-          classes={{ paper: classes.drawer }}
-          onClose={handleDrawerClose}
-          open={open}
-        >
-          <nav aria-label="Páginas de administração">
-            <List>
-              {navigation.map(({ href, icon: Icon, text }) => (
-                <li key={text}>
-                  <Link href={href}>
-                    <ListItem
-                      component="a"
-                      role={undefined}
-                      className={classes.listItem}
-                      button
-                    >
-                      <ListItemIcon>
-                        <Icon />
-                      </ListItemIcon>
-                      <ListItemText primary={text} />
-                    </ListItem>
-                  </Link>
-                </li>
-              ))}
-            </List>
-          </nav>
-        </Drawer>
-      </Hidden>
+      {!noAuth && (
+        <Hidden smUp>
+          <Drawer
+            variant="temporary"
+            classes={{ paper: classes.drawer }}
+            onClose={handleDrawerClose}
+            open={open}
+          >
+            <nav aria-label="Páginas de administração">
+              <List>
+                {navigation.map(({ href, icon: Icon, text }) => (
+                  <li key={text}>
+                    <Link href={href}>
+                      <ListItem
+                        component="a"
+                        role={undefined}
+                        className={classes.listItem}
+                        button
+                      >
+                        <ListItemIcon>
+                          <Icon />
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                      </ListItem>
+                    </Link>
+                  </li>
+                ))}
+              </List>
+            </nav>
+          </Drawer>
+        </Hidden>
+      )}
 
-      <Hidden xsDown implementation="css">
-        <Drawer
-          variant="permanent"
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          })}
-          classes={{
-            paper: clsx({
+      {!noAuth && (
+        <Hidden xsDown implementation="css">
+          <Drawer
+            variant="permanent"
+            className={clsx(classes.drawer, {
               [classes.drawerOpen]: open,
               [classes.drawerClose]: !open,
-            }),
-          }}
-          open={open}
-        >
-          <div className={classes.toolbar}>
-            <IconButton
-              aria-label="Fechar menu principal"
-              onClick={handleDrawerClose}
-            >
-              {theme.direction === 'rtl' ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </div>
-          <Divider />
-          <nav aria-label="Páginas de administração">
-            <List>
-              {navigation.map(({ href, icon: Icon, text }) => (
-                <li key={text}>
-                  <Link href={href}>
-                    <ListItem
-                      component="a"
-                      role={undefined}
-                      className={classes.listItem}
-                      button
-                    >
-                      <ListItemIcon>
-                        <Icon />
-                      </ListItemIcon>
-                      <ListItemText primary={text} />
-                    </ListItem>
-                  </Link>
-                </li>
-              ))}
-            </List>
-          </nav>
-        </Drawer>
-      </Hidden>
+            })}
+            classes={{
+              paper: clsx({
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open,
+              }),
+            }}
+            open={open}
+          >
+            <div className={classes.toolbar}>
+              <IconButton
+                aria-label="Fechar menu principal"
+                onClick={handleDrawerClose}
+              >
+                {theme.direction === 'rtl' ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
+              </IconButton>
+            </div>
+            <Divider />
+            <nav aria-label="Páginas de administração">
+              <List>
+                {navigation.map(({ href, icon: Icon, text }) => (
+                  <li key={text}>
+                    <Link href={href}>
+                      <ListItem
+                        component="a"
+                        role={undefined}
+                        className={classes.listItem}
+                        button
+                      >
+                        <ListItemIcon>
+                          <Icon />
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                      </ListItem>
+                    </Link>
+                  </li>
+                ))}
+              </List>
+            </nav>
+          </Drawer>
+        </Hidden>
+      )}
 
       <Container component="main" className={classes.content}>
         <div className={classes.toolbar} />
