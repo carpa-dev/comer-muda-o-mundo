@@ -62,6 +62,7 @@ function ProducerIndex() {
               </IconButton>
             </Link>
           </TableCell>
+          <TableCell>{p.id}</TableCell>
           <TableCell>{p.name}</TableCell>
           <TableCell>{p.address}</TableCell>
         </TableRow>
@@ -98,6 +99,7 @@ function ProducerIndex() {
           <TableHead>
             <TableRow>
               <TableCell>Actions</TableCell>
+              <TableCell>Id</TableCell>
               <TableCell>Nome</TableCell>
               <TableCell>Endereço</TableCell>
             </TableRow>

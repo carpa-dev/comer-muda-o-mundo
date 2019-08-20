@@ -2,18 +2,26 @@ import { Formik, FormikTouched, FormikErrors } from 'formik';
 import {
   Grid,
   TextField,
-  Typography,
   makeStyles,
   createStyles,
+  Theme,
 } from '@material-ui/core';
 
 import LoadingButton from '@components/LoadingButton';
 import SearchBar from '@containers/SearchBar';
 import '@styles/search-bar.css';
-import * as yup from 'yup';
 import { Producer, NewProducer, NewProducerSchema } from '@models/producer';
+import 'react-quill/dist/quill.snow.css';
+import './_form.css';
 
-const useStyles = makeStyles(() =>
+import dynamic from 'next/dynamic';
+
+// https://github.com/zenoamaro/react-quill/issues/122#issuecomment-503269832
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+  ssr: false,
+});
+
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'flex',
@@ -28,6 +36,9 @@ const useStyles = makeStyles(() =>
     mapWrapper: {
       width: '100%',
       height: 300,
+    },
+    editorWrapper: {
+      marginBottom: `${theme.spacing(2)}px`,
     },
   })
 );
@@ -51,6 +62,7 @@ export default function ProducerForm({
               address: '',
               latitude: -9999,
               longitude: -9999,
+              post: '',
             }
       }
       validationSchema={NewProducerSchema}
@@ -148,6 +160,17 @@ export default function ProducerForm({
                 required
               />
             </Grid>
+          </Grid>
+
+          <Grid item xs={12} className={classes.editorWrapper}>
+            <QuillNoSSRWrapper
+              value={values.post || ''}
+              onChange={(s: string) => {
+                setFieldValue('post', s);
+              }}
+
+              // onChange={(v: any) => console.log(v)}
+            />
           </Grid>
 
           <LoadingButton
