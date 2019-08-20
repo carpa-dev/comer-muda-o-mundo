@@ -1,5 +1,21 @@
 {
   "presets": [
     "next/babel"
-  ]
+  ],
+  "plugins": [
+    [
+        "module-resolver",
+        {
+            "root": ["./"],
+            "alias": {
+                "@app": ".",
+                "@api": "./api",
+                "@components": "./components",
+                "@containers": "./containers",
+		"@models":"./models",
+                "@styles": "./styles"
+            }
+        }
+    ]
+]
 }

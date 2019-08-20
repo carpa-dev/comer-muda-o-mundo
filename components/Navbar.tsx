@@ -25,11 +25,32 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-function Navbar() {
+
+const defaultLinks = [
+  { href: '/', label: 'Mapa' },
+  { href: '/quem-somos', label: 'Quem somos' },
+];
+
+const adminLinks = [
+  {
+    href: '/admin/logout',
+    label: 'Logout',
+  },
+];
+
+interface NavbarProps {
+  admin?: boolean;
+}
+
+function Navbar({ admin }: NavbarProps) {
   const classes = useStyles();
+  const links = admin ? adminLinks : defaultLinks;
 
   return (
-    <AppBar position="static" className={classes.appBar}>
+    <AppBar
+      position="static"
+      className={classes.appBar + ` app-navbar` + (admin ? ` admin` : '')}
+    >
       <Toolbar>
         <Typography
           variant="h6"
@@ -40,32 +61,17 @@ function Navbar() {
           Comer muda o mundo
         </Typography>
 
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}
-        >
-          Quem Somos
-        </Link>
-
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}
-        >
-          Mapa
-        </Link>
-
-        <Link
-          variant="button"
-          color="inherit"
-          href="#"
-          className={classes.link}
-        >
-          Iniciativas
-        </Link>
+        {links.map(link => (
+          <Link
+            key={link.href}
+            variant="button"
+            color="inherit"
+            href={link.href}
+            className={classes.link}
+          >
+            {link.label}
+          </Link>
+        ))}
       </Toolbar>
     </AppBar>
   );

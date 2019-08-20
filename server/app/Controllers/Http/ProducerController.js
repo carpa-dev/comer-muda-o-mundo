@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Producer = use("App/Models/Producer");
+const Producer = use('App/Models/Producer');
 
 /**
  * Resourceful controller for interacting with producers
@@ -20,6 +20,7 @@ class ProducerController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
+    // TODO: restrict fields to return
     return await Producer.all();
   }
 

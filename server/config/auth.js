@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 /** @type {import('@adonisjs/framework/src/Env')} */
-const Env = use('Env')
+const Env = use('Env');
 
 module.exports = {
   /*
@@ -32,7 +32,7 @@ module.exports = {
     model: 'App/Models/User',
     scheme: 'session',
     uid: 'email',
-    password: 'password'
+    password: 'password',
   },
 
   /*
@@ -53,7 +53,7 @@ module.exports = {
     model: 'App/Models/User',
     scheme: 'basic',
     uid: 'email',
-    password: 'password'
+    password: 'password',
   },
 
   /*
@@ -72,8 +72,10 @@ module.exports = {
     uid: 'email',
     password: 'password',
     options: {
-      secret: Env.get('APP_KEY')
-    }
+      // expiresIn: 86400,
+      expiresIn: 30,
+      secret: Env.get('APP_KEY'),
+    },
   },
 
   /*
@@ -89,6 +91,6 @@ module.exports = {
     model: 'App/Models/User',
     scheme: 'api',
     uid: 'email',
-    password: 'password'
-  }
-}
+    password: 'password',
+  },
+};
