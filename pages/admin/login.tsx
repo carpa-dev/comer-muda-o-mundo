@@ -56,7 +56,7 @@ function AdminLogin() {
   };
 
   return (
-    <AdminPage>
+    <AdminPage noAuth>
       <Head>
         <title>Login - Comer muda o mundo</title>
       </Head>
