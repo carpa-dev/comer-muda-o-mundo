@@ -12,6 +12,7 @@
                 "@api": "./api",
                 "@components": "./components",
                 "@containers": "./containers",
+		"@models":"./models",
                 "@styles": "./styles"
             }
         }

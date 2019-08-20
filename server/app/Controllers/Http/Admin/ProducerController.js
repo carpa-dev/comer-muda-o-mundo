@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-const { validate, validateAll } = use("Validator");
-const Producer = use("App/Models/Producer");
+const { validate, validateAll } = use('Validator');
+const Producer = use('App/Models/Producer');
 /**
  * Resourceful controller for interacting with producers
  */
@@ -88,10 +88,10 @@ class ProducerController {
 async function validateInput(request) {
   const data = request.all();
   const rules = {
-    name: "required",
-    address: "required",
-    latitude: "required",
-    longitude: "required"
+    name: 'required',
+    address: 'required',
+    latitude: 'required',
+    longitude: 'required',
   };
 
   const validation = await validate(data, rules);
@@ -99,7 +99,7 @@ async function validateInput(request) {
   if (validation.fails()) {
     // TODO
     throw new Error(
-      "Validation failed" + JSON.stringify(validation.messages())
+      'Validation failed' + JSON.stringify(validation.messages())
     );
   }
 

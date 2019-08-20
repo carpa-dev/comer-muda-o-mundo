@@ -20,6 +20,7 @@
   "dependencies": {
     "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^4.2.1",
+    "@material-ui/lab": "^4.0.0-alpha.23",
     "@react-google-maps/api": "^1.5.4",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.0",
