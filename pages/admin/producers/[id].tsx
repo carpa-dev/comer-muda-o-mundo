@@ -35,7 +35,6 @@ function EditProducer() {
   }, [id]);
 
   const onSave = async (p: Producer) => {
-    debugger;
     await ProducerAPI.update(p);
     Router.push('/admin/producers');
   };
