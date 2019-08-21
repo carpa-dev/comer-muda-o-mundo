@@ -20,6 +20,10 @@ export const NewProducerSchema = yup.object({
   name: yup.string().required(),
   address: yup.string().required(),
   ...latLong,
+  post: yup
+    .string()
+    .nullable()
+    .default(''),
 });
 
 export const ProducerSchema = yup.object({
@@ -27,6 +31,10 @@ export const ProducerSchema = yup.object({
   name: yup.string().required(),
   address: yup.string().required(),
   ...latLong,
+  post: yup
+    .string()
+    .nullable()
+    .default(''),
   created_at: yup.date().required(),
   updated_at: yup.date().required(),
 });

@@ -35,15 +35,13 @@ function EditProducer() {
   }, [id]);
 
   const onSave = async (p: Producer) => {
-    const producer = await ProducerAPI.update(p);
+    await ProducerAPI.update(p);
     Router.push('/admin/producers');
   };
 
   const renderForm = () => {
     if (loading) {
-      // TODO:
-      // add a delay so that it only shows on slower connections
-      return <Skeleton variant="rect" height={500} />;
+      return null;
     } else {
       return (
         <ProducerForm initialState={producer} onSave={onSave}></ProducerForm>
