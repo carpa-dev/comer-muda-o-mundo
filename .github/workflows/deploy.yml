@@ -21,11 +21,12 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-        npm run now --token="$NOW_TOKEN" \
+        npm run now \
           -e APP_KEY="$APP_KEY" \
           -e DATABASE_URL="$DATABASE_URL" \
           -e DB_CONNECTION=pg \
-          -e GOOGLE_MAPS_KEY="$GOOGLE_MAPS_KEY"
+          -e GOOGLE_MAPS_KEY="$GOOGLE_MAPS_KEY" \
+          -- --token="$NOW_TOKEN"
       env:
         CI: true
         APP_KEY: ${{ secrets.APP_KEY }}
