@@ -37,6 +37,8 @@ jobs:
         npm run adonis -- migration:run
       env:
         ENV_SILENT: true
+        APP_KEY: ${{ secrets.APP_KEY }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
     - name: npm install, build, and test
       run: |
