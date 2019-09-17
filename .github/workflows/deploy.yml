@@ -35,7 +35,9 @@ jobs:
         cd server
         npm install
         npm run adonis -- migration:run
-        
+      env:
+        ENV_SILENT: true
+
     - name: npm install, build, and test
       run: |
         npm install
