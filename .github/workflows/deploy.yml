@@ -23,8 +23,8 @@ jobs:
       run: |
         cd server
         npm install
-        npm run adonis migration:run
-        npm run adonis seed        
+        npm run adonis -- migration:run
+        npm run adonis -- seed        
         npm run test
       env:
         NODE_ENV: testing
@@ -34,7 +34,7 @@ jobs:
       run: |
         cd server
         npm install
-        npm run adonis migration:run
+        npm run adonis -- migration:run
         
     - name: npm install, build, and test
       run: |
