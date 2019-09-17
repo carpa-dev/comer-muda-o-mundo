@@ -19,11 +19,21 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: db migrations
+    - name: server tests
       run: |
         cd server
         npm install
+        npm run adonis migration:run
+        npm run adonis seed        
         npm run test
+      env:
+        NODE_ENV: testing
+        ENV_PATH: .env.testing
+
+    - name: migration
+      run: |
+        cd server
+        npm install
         npm run adonis migration:run
         
     - name: npm install, build, and test
