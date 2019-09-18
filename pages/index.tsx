@@ -80,12 +80,26 @@ function Home() {
   const onClose = () => setOpen(false);
 
   const markdownOptions = {
+    forceBlock: true,
     overrides: {
       h1: {
         component: Typography,
         props: {
           gutterBottom: true,
           variant: 'h6',
+        },
+      },
+      h2: {
+        component: Typography,
+        props: {
+          variant: 'subtitle2',
+        },
+      },
+      p: {
+        component: Typography,
+        props: {
+          gutterBottom: true,
+          variant: 'body2',
         },
       },
     },

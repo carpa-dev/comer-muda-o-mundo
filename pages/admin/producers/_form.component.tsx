@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Formik, FormikTouched, FormikErrors } from 'formik';
 import {
   Grid,
@@ -11,15 +12,13 @@ import LoadingButton from '@components/LoadingButton';
 import SearchBar from '@containers/SearchBar';
 import '@styles/search-bar.css';
 import { Producer, NewProducer, NewProducerSchema } from '@models/producer';
-import 'react-quill/dist/quill.snow.css';
-import './_form.css';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 
-import dynamic from 'next/dynamic';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-// https://github.com/zenoamaro/react-quill/issues/122#issuecomment-503269832
-const QuillNoSSRWrapper = dynamic(import('react-quill'), {
-  ssr: false,
-});
+//@ts-ignore
+import { mdToDraftjs, draftjsToMd } from 'draftjs-md-converter';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +39,20 @@ const useStyles = makeStyles((theme: Theme) =>
     editorWrapper: {
       marginBottom: `${theme.spacing(2)}px`,
     },
+    editor: {
+      borderWidth: 1,
+      borderColor: 'rgba(0, 0, 0, 0.26)',
+      borderStyle: 'solid',
+      borderRadius: '4px',
+
+      padding: `${theme.spacing(2)}px`,
+    },
+    toolbarEditor: {
+      borderWidth: 1,
+      borderColor: 'rgba(0, 0, 0, 0.26)',
+      borderStyle: 'solid',
+      borderRadius: '4px',
+    },
   })
 );
 
@@ -51,6 +64,14 @@ export default function ProducerForm({
   onSave: (newProducer: any) => void; // TODO: type
 }) {
   const classes = useStyles();
+  const editorFirstContent =
+    initialState && initialState.post
+      ? EditorState.createWithContent(
+          convertFromRaw(mdToDraftjs(initialState.post))
+        )
+      : EditorState.createEmpty();
+
+  const [editorState, setEditorState] = useState(editorFirstContent);
 
   return (
     <Formik
@@ -163,13 +184,26 @@ export default function ProducerForm({
           </Grid>
 
           <Grid item xs={12} className={classes.editorWrapper}>
-            <QuillNoSSRWrapper
-              value={values.post || ''}
-              onChange={(s: string) => {
-                setFieldValue('post', s);
-              }}
+            <Editor
+              editorState={editorState}
+              editorClassName={classes.editor}
+              toolbarClassName={classes.toolbarEditor}
+              onEditorStateChange={es => {
+                const content = es.getCurrentContent();
 
-              // onChange={(v: any) => console.log(v)}
+                setFieldValue('post', draftjsToMd(convertToRaw(content)));
+
+                setEditorState(es);
+              }}
+              toolbar={{
+                options: ['inline', 'blockType', 'list', 'link'],
+                inline: {
+                  options: ['bold', 'italic'],
+                },
+                blockType: {
+                  options: ['Normal', 'H1', 'H2'],
+                },
+              }}
             />
           </Grid>
 
