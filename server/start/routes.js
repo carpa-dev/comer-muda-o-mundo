@@ -25,6 +25,10 @@ Route.group(() => {
   // Route.resource('/producers', 'ProducerController').only(['index', 'show']);
 }).prefix('/api/v1');
 
+Route.group(() => {
+  Route.get('/public-initiatives', 'PublicInitiativeController.index');
+}).prefix('/api/v1');
+
 // protected
 
 // payload is different whether you are logged in or not
