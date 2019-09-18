@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import Keys from '@app/config/keys';
 import Marker from '@components/Maps/Marker';
 import MarkerTooltip from '@components/Maps/MarkerTooltip';
+import { PublicInitiative } from '@app/models/publicInitiative';
 
 // https://jsfiddle.net/svigna/VzYF6/
 function fromLatLngToPoint(map: google.maps.Map, latLng: google.maps.LatLng) {
@@ -30,10 +31,11 @@ function fromLatLngToPoint(map: google.maps.Map, latLng: google.maps.LatLng) {
 }
 
 interface InteractiveMapProps {
-  onMarkerClick: () => void;
+  onMarkerClick: (i: PublicInitiative) => void;
+  initiatives: PublicInitiative[] | undefined;
 }
 
-function InteractiveMap({ onMarkerClick }: InteractiveMapProps) {
+function InteractiveMap({ onMarkerClick, initiatives }: InteractiveMapProps) {
   const [map, setMap] = useState<google.maps.Map | undefined>(undefined);
   const [showTooltip, setTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState<
@@ -64,19 +66,28 @@ function InteractiveMap({ onMarkerClick }: InteractiveMapProps) {
     return <div>Erro ao carregar mapa.</div>;
   }
 
+  const renderMarkers = (initiatives: PublicInitiative[]) => {
+    return initiatives.map(i => {
+      return (
+        <Marker
+          onClick={onMarkerClick.bind(null, i)}
+          //onMouseOver={onMarkerMouseOver}
+          //onMouseOut={onMarkerMouseOut}
+          position={{ lat: i.latitude, lng: i.longitude }}
+        />
+      );
+    });
+  };
+
   return (
     <InteractiveMapComponent map={map} setMap={setMap}>
-      <Marker
-        onClick={onMarkerClick}
-        onMouseOver={onMarkerMouseOver}
-        onMouseOut={onMarkerMouseOut}
-        position={CENTER}
-      />
-      {tooltipPosition && (
+      {initiatives ? renderMarkers(initiatives) : null}
+
+      {/*tooltipPosition && (
         <MarkerTooltip open={showTooltip} position={tooltipPosition}>
           Raízes do Brasil
         </MarkerTooltip>
-      )}
+      )*/}
     </InteractiveMapComponent>
   );
 }
