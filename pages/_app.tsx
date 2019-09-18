@@ -4,10 +4,10 @@ import NextApp, { Container } from 'next/app';
 import React from 'react';
 import theme from '../config/theme';
 import ErrorComponent from '@app/containers/error';
-import '../style.css';
 import { registerInterceptors } from '@api/axios';
 import Router from 'next/router';
 import { logout } from '@api/auth';
+import '@styles/main.css';
 
 class App extends NextApp {
   state = { error: null };
@@ -45,7 +45,7 @@ class App extends NextApp {
           <ErrorComponent
             error={this.state.error}
             onClose={() => this.setState({ error: null })}
-          ></ErrorComponent>
+          />
         </ThemeProvider>
       </Container>
     );
