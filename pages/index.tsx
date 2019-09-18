@@ -26,6 +26,7 @@ import { forwardRef, useState } from 'react';
 import Keys from '@app/config/keys';
 import Navbar from '@components/Navbar';
 import InteractiveMap from '@containers/InteractiveMap';
+import ReactMarkdown from 'markdown-to-jsx';
 
 const Transition = forwardRef<unknown, TransitionProps>(function TransitionUp(
   props,
@@ -78,6 +79,17 @@ function Home() {
 
   const onClose = () => setOpen(false);
 
+  const markdownOptions = {
+    overrides: {
+      h1: {
+        component: Typography,
+        props: {
+          gutterBottom: true,
+          variant: 'h6',
+        },
+      },
+    },
+  };
   return (
     <>
       <Head>
@@ -121,9 +133,11 @@ function Home() {
                   className={classes.img}
                 />
               </div>
-              <Typography component="h3" variant="h6" gutterBottom>
-                Sobre a iniciativa
-              </Typography>
+
+              <ReactMarkdown options={markdownOptions}>
+                # Sobre a iniciativa
+              </ReactMarkdown>
+
               <Typography variant="body2" paragraph>
                 Se você já ouviu a frase: “comida de verdade no campo e na
                 cidade”, ela passa a fazer ainda mais sentido depois de conhecer
