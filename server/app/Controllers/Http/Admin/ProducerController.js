@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 const { validate, validateAll } = use('Validator');
-const Producer = use('App/Models/Producer');
+const Initiative = use('App/Models/Initiative');
 /**
  * Resourceful controller for interacting with producers
  */
@@ -19,7 +19,7 @@ class ProducerController {
    * @param {View} ctx.view
    */
   async index({ request, response, view }) {
-    return await Producer.all();
+    return await Initiative.all();
   }
 
   /**
@@ -33,7 +33,7 @@ class ProducerController {
   async store({ request, response }) {
     const data = await validateInput(request);
 
-    const newProducer = await Producer.create(data);
+    const newProducer = await Initiative.create(data);
 
     return await this.show({ params: newProducer });
   }
@@ -48,7 +48,7 @@ class ProducerController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
-    return await Producer.findOrFail(params.id);
+    return await Initiative.findOrFail(params.id);
   }
 
   /**
@@ -61,12 +61,12 @@ class ProducerController {
    */
   async update({ params, request, response }) {
     const data = request.all();
-    const producer = await Producer.findOrFail(params.id);
+    const producer = await Initiative.findOrFail(params.id);
 
     producer.merge(data);
 
     await producer.save();
-    return await Producer.findOrFail(params.id);
+    return await Initiative.findOrFail(params.id);
   }
 
   /**
@@ -78,7 +78,7 @@ class ProducerController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
-    const p = await Producer.findOrFail(params.id);
+    const p = await Initiative.findOrFail(params.id);
 
     await p.delete();
     return {};

@@ -4,7 +4,7 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Producer = use('App/Models/Producer');
+const Initiative = use('App/Models/Initiative');
 /**
  * Resourceful controller for interacting with producers
  */
@@ -20,7 +20,8 @@ class PublicInitiativeController {
    */
   async index({ request, response, view }) {
     // TODO: restrict fields to return
-    return await Producer.all();
+    const p = await Initiative.all();
+    return p;
   }
 }
 

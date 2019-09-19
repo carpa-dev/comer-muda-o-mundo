@@ -73,7 +73,10 @@ function InteractiveMap({ onMarkerClick, initiatives }: InteractiveMapProps) {
           onClick={onMarkerClick.bind(null, i)}
           //onMouseOver={onMarkerMouseOver}
           //onMouseOut={onMarkerMouseOut}
-          position={{ lat: i.latitude, lng: i.longitude }}
+          position={{
+            lat: parseFloat(i.latitude),
+            lng: parseFloat(i.longitude),
+          }}
         />
       );
     });
