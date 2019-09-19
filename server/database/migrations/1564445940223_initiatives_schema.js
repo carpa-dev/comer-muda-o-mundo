@@ -19,7 +19,7 @@ class InitiativesSchema extends Schema {
   }
 
   down() {
-    this.drop('producers');
+    this.drop('initiatives');
   }
 }
 

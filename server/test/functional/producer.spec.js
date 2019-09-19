@@ -1,7 +1,7 @@
 'use strict';
 
-const { test, trait, before, after } = use('Test/Suite')('Producer');
-const Producer = use('App/Models/Producer');
+const { test, trait, before, after } = use('Test/Suite')('Initiative');
+const Initiative = use('App/Models/Initiative');
 const User = use('App/Models/User');
 const Token = use('App/Models/Token');
 const Factory = use('Factory');
@@ -10,20 +10,21 @@ const TokenModel = Factory.model('App/Models/Token');
 
 trait('Test/ApiClient');
 trait('Auth/Client');
+trait('DatabaseTransactions');
 
 const fixtures = {
   producer: {
     name: 'name',
     address: 'address',
-    latitude: -22.9035,
-    longitude: -43.2096,
+    latitude: '-22.9035',
+    longitude: '-43.2096',
     post: `big post`,
   },
   producer2: {
     name: 'name2',
     address: 'address2',
-    latitude: -23.9035,
-    longitude: -44.2096,
+    latitude: '-23.9035',
+    longitude: '-44.2096',
     post: `big post`,
   },
 };
@@ -51,7 +52,7 @@ before(async () => {
 test('get list of producers', async ({ client }) => {
   const data = fixtures.producer;
   const user = await User.first();
-  await Producer.create(data);
+  await Initiative.create(data);
   const response = await client
     .get('/api/v1/producers')
     .loginVia(user, 'jwt')
