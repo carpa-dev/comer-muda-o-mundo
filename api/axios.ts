@@ -47,6 +47,7 @@ export function registerInterceptors({
               // retry last request
               return axios(error.config);
             } catch (err) {
+              onNotLoggedIn();
               // failed to refresh token
               return Promise.reject(error);
             }
