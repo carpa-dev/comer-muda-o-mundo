@@ -56,6 +56,13 @@ jobs:
         npm install
         npm run build --if-present
 
+      env:
+        CI: true
+        APP_KEY: ${{ secrets.APP_KEY }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        GOOGLE_MAPS_KEY: ${{ secrets.GOOGLE_MAPS_KEY }}
+        NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
+
     - name: deploy
       run: |
         npm install -g now
