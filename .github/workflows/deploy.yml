@@ -65,7 +65,7 @@ jobs:
 
     - name: deploy
       run: |
-        now -- \
+        now \
           -e APP_KEY="$APP_KEY" \
           -e DATABASE_URL="$DATABASE_URL" \
           -e DB_CONNECTION=pg \
