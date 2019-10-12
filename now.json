@@ -3,10 +3,10 @@
   "builds": [
     { "src": "client/package.json", "use": "@now/next" },
     {
-      "src": "/server/server.js",
+      "src": "/adonis/server.js",
       "use": "@now/node-server",
       "config": {
-        "includeFiles": ["server/**"],
+        "includeFiles": ["adonis/**"],
         "maxLambdaSize": "50mb"
       }
     },
