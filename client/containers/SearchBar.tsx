@@ -4,7 +4,7 @@ import MuiTextField, {
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 import { useState } from 'react';
 
-import Keys from '@app/config/keys';
+import Keys from '../config/keys';
 
 function TextField({ disabled }: MuiTextFieldProps) {
   return (

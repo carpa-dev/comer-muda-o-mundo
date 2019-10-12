@@ -1,6 +1,6 @@
 import { Marker as BaseMarker, MarkerProps } from '@react-google-maps/api';
 
-import theme from '@app/config/theme';
+import theme from '../../config/theme';
 
 function Marker(props: MarkerProps) {
   const icon = {

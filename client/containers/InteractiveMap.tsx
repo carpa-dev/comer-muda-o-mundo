@@ -1,10 +1,10 @@
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import { useCallback, useState } from 'react';
 
-import Keys from '@app/config/keys';
+import Keys from '../config/keys';
 import Marker from '@components/Maps/Marker';
 import MarkerTooltip from '@components/Maps/MarkerTooltip';
-import { PublicInitiative } from '@app/models/publicInitiative';
+import { PublicInitiative } from '../models/publicInitiative';
 
 // https://jsfiddle.net/svigna/VzYF6/
 function fromLatLngToPoint(map: google.maps.Map, latLng: google.maps.LatLng) {

@@ -1,7 +1,7 @@
 {
   "version": 2,
   "builds": [
-    { "src": "package.json", "use": "@now/next" },
+    { "src": "client/package.json", "use": "@now/next" },
     {
       "src": "/server/server.js",
       "use": "@now/node-server",
@@ -17,12 +17,16 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/server/server.js"
+      "src": "/api/v1/(.*)",
+      "dest": "/adonis/server.js"
     },
     {
-      "src": "/nestjs/(.*)",
+      "src": "/api/v2/(.*)",
       "dest": "/nestjs/dist/main.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "client/$1"
     }
   ],
   "env": {

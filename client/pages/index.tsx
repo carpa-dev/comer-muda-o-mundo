@@ -23,12 +23,12 @@ import {
 import Head from 'next/head';
 import { forwardRef, useState, useEffect } from 'react';
 
-import Keys from '@app/config/keys';
+import Keys from '../config/keys';
 import Navbar from '@components/Navbar';
 import InteractiveMap from '@containers/InteractiveMap';
 import ReactMarkdown from 'markdown-to-jsx';
 import * as fromPublicInitiative from '@api/publicInitiative';
-import { PublicInitiative } from '@app/models/publicInitiative';
+import { PublicInitiative } from '../models/publicInitiative';
 
 const Transition = forwardRef<unknown, TransitionProps>(function TransitionUp(
   props,
@@ -71,8 +71,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function Home() {
+  // TODO: validate envs separately
   if (!Keys.GOOGLE_MAPS_KEY) {
-    // TODO: validate envs separately
     throw new Error('Missing Google Maps API key');
   }
 

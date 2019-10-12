@@ -1,6 +1,6 @@
 import { Fade, Paper, Typography } from '@material-ui/core';
 
-import theme from '@app/config/theme';
+import theme from '../../config/theme';
 
 interface MarkerTooltipProps {
   children: React.ReactNode;

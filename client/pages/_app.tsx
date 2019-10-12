@@ -3,7 +3,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import NextApp, { Container } from 'next/app';
 import React from 'react';
 import theme from '../config/theme';
-import ErrorComponent from '@app/containers/error';
+import ErrorComponent from '../containers/error';
 import { registerInterceptors } from '@api/axios';
 import Router from 'next/router';
 import { logout } from '@api/auth';
