@@ -27,6 +27,7 @@ jobs:
         cd nestjs
         npm install
         npm run test
+        npm run build
 
     - name: server
       run: |
