@@ -54,7 +54,6 @@ jobs:
         cd client
         npm install
         npm run build --if-present
-        npm run typeorm -- migration:run
 
       env:
         CI: true
@@ -64,6 +63,8 @@ jobs:
 
     - name: deploy
       run: |
+        cd nextjs && npm run typeorm -- migration:run && cd ..
+
         now \
           -e APP_KEY="$APP_KEY" \
           -e DATABASE_URL="$DATABASE_URL" \
