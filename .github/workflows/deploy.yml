@@ -63,9 +63,6 @@ jobs:
 
     - name: deploy
       run: |
-      # TODO:
-#        cd nestjs && npm run typeorm -- migration:run && cd ..
-
         now \
           -e APP_KEY="$APP_KEY" \
           -e DATABASE_URL="$DATABASE_URL" \
