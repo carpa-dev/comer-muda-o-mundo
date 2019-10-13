@@ -9,9 +9,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @All() // Matches "*" on all methods GET, POST...
-  genericFunction() {
-    return '404 page';
-  }
 }

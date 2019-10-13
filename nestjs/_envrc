@@ -1,0 +1,5 @@
+export TYPEORM_URL="postgres://cmom:dev@localhost/cmom"
+export TYPEORM_DATABASE="cmom"
+export TYPEORM_CONNECTION="postgres"
+export TYPEORM_SYNCHRONIZE="false"
+export TYPEORM_LOGGING="true"

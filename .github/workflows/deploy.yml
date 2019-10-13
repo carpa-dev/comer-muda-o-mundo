@@ -27,7 +27,6 @@ jobs:
         cd nestjs
         npm install
         npm run test
-        npm run build
 
     - name: server
       run: |
@@ -55,13 +54,13 @@ jobs:
         cd client
         npm install
         npm run build --if-present
+        npm run typeorm -- migration:run
 
       env:
         CI: true
         APP_KEY: ${{ secrets.APP_KEY }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         GOOGLE_MAPS_KEY: ${{ secrets.GOOGLE_MAPS_KEY }}
-        NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
 
     - name: deploy
       run: |
