@@ -45,6 +45,9 @@ jobs:
         cd adonis
         npm install
         npm run adonis -- migration:run
+
+        cd ../nestjs
+        npm run typeorm -- migration:run
       env:
         ENV_SILENT: true
         APP_KEY: ${{ secrets.APP_KEY }}
@@ -59,16 +62,12 @@ jobs:
       env:
         CI: true
         APP_KEY: ${{ secrets.APP_KEY }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
         GOOGLE_MAPS_KEY: ${{ secrets.GOOGLE_MAPS_KEY }}
 
     - name: deploy
       run: |
-        now \
-          -e APP_KEY="$APP_KEY" \
-          -e DATABASE_URL="$DATABASE_URL" \
+        bash scripts/deploy.sh \
           -e DB_CONNECTION=pg \
-          -e GOOGLE_MAPS_KEY="$GOOGLE_MAPS_KEY" \
           --token="$NOW_TOKEN"
 
       env:

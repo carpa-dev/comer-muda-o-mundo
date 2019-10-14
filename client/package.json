@@ -12,7 +12,7 @@
     "next": "next",
     "now-build": "next build",
     "now": "now",
-    "deploy": "now -e APP_KEY=@app_key -e DATABASE_URL=@database_url -e DB_CONNECTION=@db_connection -e GOOGLE_MAPS_KEY=@google_maps_key",
+    "deploy": "now -e APP_KEY=@app_key -e DATABASE_URL=@database_url -e DB_CONNECTION=@db_connection -e GOOGLE_MAPS_KEY=@google_maps_key -e DATABASE_SSL=@database_ssl",
     "proxy": "lcp --proxyUrl http://office:3333"
   },
   "author": "",

@@ -9,12 +9,20 @@
         "includeFiles": ["**"],
         "maxLambdaSize": "50mb"
       }
+    },
+    {
+      "src": "nestjs/dist/main.js",
+      "use": "@now/node-server"
     }
   ],
   "routes": [
     {
       "src": "/api/v1/(.*)",
       "dest": "/adonis/server.js"
+    },
+    {
+      "src": "/api/v2/(.*)",
+      "dest": "/nestjs/dist/main.js"
     },
     {
       "src": "/(.*)",
