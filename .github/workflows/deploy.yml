@@ -52,6 +52,7 @@ jobs:
         ENV_SILENT: true
         APP_KEY: ${{ secrets.APP_KEY }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        DATABASE_SSL: true
 
     - name: nextjs
       run: |
