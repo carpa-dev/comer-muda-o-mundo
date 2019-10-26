@@ -2,6 +2,7 @@ import { Controller, Request, Get, All, UseGuards, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth/auth.service';
+import { UserFromJWT } from './auth/jwt.strategy';
 
 @Controller()
 export class AppController {
@@ -22,12 +23,8 @@ export class AppController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('profile')
-  getProfile(@Request() req) {
+  @Get('me')
+  getProfile(@Request() req): UserFromJWT {
     return req.user;
   }
-  //  @All()
-  //  huh(): string {
-  //    return 'hello cutie pi';
-  //  }
 }

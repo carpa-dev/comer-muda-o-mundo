@@ -30,6 +30,9 @@ export class Initiative {
   @Column('text')
   post: string;
 
+  @Column('boolean')
+  isPublished: boolean;
+
   @CreateDateColumn() createdAt: Date;
   @UpdateDateColumn() updatedAt: Date;
   @VersionColumn() version: number;
