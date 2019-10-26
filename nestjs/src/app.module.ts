@@ -3,7 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InitiativeModule } from './initiative/initiative.module';
-import { Initiative } from './initiative/initiative.entity';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
@@ -16,10 +18,12 @@ import { Initiative } from './initiative/initiative.entity';
         ssl: !!process.env.DATABASE_SSL,
       },
 
+      logging: ['query'],
       // https://github.com/zeit/ncc/issues/245#issuecomment-458583032
-      entities: [Initiative],
+      entities: [User],
     }),
-    InitiativeModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
