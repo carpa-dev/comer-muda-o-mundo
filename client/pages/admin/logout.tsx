@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { logout } from '@api/index';
-import withAuth from '@containers/withAuth';
+import { withAuthActive } from '@containers/withAuth';
 
 function AdminLogout() {
   useEffect(() => {
@@ -16,4 +16,4 @@ function AdminLogout() {
   return null;
 }
 
-export default withAuth(AdminLogout);
+export default withAuthActive(AdminLogout);

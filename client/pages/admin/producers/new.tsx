@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import * as ProducerAPI from '@api/producer';
 import AdminPage from '@components/AdminPage';
 import Breadcrumbs from '@components/Breadcrumbs';
-import withAuth from '@containers/withAuth';
+import { withAuthActive } from '@containers/withAuth';
 import ProducerForm from './_form.component';
 import { NewProducer } from '@models/producer';
 
@@ -44,4 +44,4 @@ function NewProducerComponent() {
   );
 }
 
-export default withAuth(NewProducerComponent);
+export default withAuthActive(NewProducerComponent);

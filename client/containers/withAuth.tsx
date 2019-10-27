@@ -25,7 +25,21 @@ function redirectTo(route: string, ctx: DocumentContext): void {
   }
 }
 
-function withAuth(WrappedComponent: NextComponentType) {
+function noop() {}
+
+function withAuthActive(WrappedComponent: NextComponentType) {
+  return withAuth(WrappedComponent, noop, redirectTo.bind(null, '/activate'));
+}
+
+function withAuthInactive(WrappedComponent: NextComponentType) {
+  return withAuth(WrappedComponent, redirectTo.bind(null, '/admin'), noop);
+}
+
+function withAuth(
+  WrappedComponent: NextComponentType,
+  handleActive: (ctx: DocumentContext) => void,
+  handleInactive: (ctx: DocumentContext) => void
+) {
   return class extends Component {
     static displayName = `withAuthSync(${getDisplayName(WrappedComponent)})`;
 
@@ -35,13 +49,13 @@ function withAuth(WrappedComponent: NextComponentType) {
       if (!token) {
         redirectTo('/login', ctx);
       } else {
-        const decoded = jwt.decode(JSON.parse(token).access_token);
         // TODO:
         // decode with yup
-        if (decoded && (decoded as any).active) {
-          console.log('everything is right');
+        const decoded: any = jwt.decode(JSON.parse(token).access_token);
+        if (decoded && decoded.active) {
+          handleActive(ctx);
         } else {
-          redirectTo('/activate', ctx);
+          handleInactive(ctx);
         }
       }
 
@@ -89,4 +103,4 @@ function getToken(ctx: DocumentContext): string | undefined {
   return token;
 }
 
-export default withAuth;
+export { withAuthActive, withAuthInactive };

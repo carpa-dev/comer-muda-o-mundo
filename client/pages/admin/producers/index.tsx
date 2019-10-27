@@ -19,7 +19,7 @@ import { Edit, Add } from '@material-ui/icons';
 import { getAll } from '@api/producer';
 import AdminPage from '@components/AdminPage';
 import Breadcrumbs from '@components/Breadcrumbs';
-import withAuth from '@containers/withAuth';
+import { withAuthActive } from '@containers/withAuth';
 import { Producer } from '@models/producer';
 import '@styles/dummy.css';
 
@@ -122,4 +122,4 @@ function ProducerIndex() {
   );
 }
 
-export default withAuth(ProducerIndex);
+export default withAuthActive(ProducerIndex);

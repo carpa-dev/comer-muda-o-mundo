@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import * as ProducerAPI from '@api/producer';
 import Router from 'next/router';
 import { Producer } from '@models/producer';
-import withAuth from '@containers/withAuth';
+import { withAuthActive } from '@containers/withAuth';
 
 function EditProducer() {
   const router = useRouter();
@@ -70,4 +70,4 @@ function EditProducer() {
   );
 }
 
-export default withAuth(EditProducer);
+export default withAuthActive(EditProducer);
