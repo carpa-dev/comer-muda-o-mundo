@@ -3,9 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InitiativeModule } from './initiative/initiative.module';
-import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { User } from './users/user.entity';
+import { User } from './auth/user.entity';
 import { TypeOrmConfigService } from './typeorm.service';
 import { TypeOrmConfigModule } from './typeorm.service';
 
@@ -31,7 +30,6 @@ import { TypeOrmConfigModule } from './typeorm.service';
     //      }),
     //    }),
     AuthModule,
-    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,4 @@
-import { User } from './users/user.entity';
+import { User } from './auth/user.entity';
 import { Module } from '@nestjs/common';
 
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';

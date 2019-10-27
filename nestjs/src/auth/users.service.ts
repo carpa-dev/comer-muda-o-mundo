@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Scope, Inject } from '@nestjs/common';
+import { REQUEST } from '@nestjs/core';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './create-user.dto';
+import { AuthService } from './auth.service';
 
-@Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
@@ -17,11 +18,5 @@ export class UsersService {
         email,
       },
     });
-    //    return undefined;
-    //    return this.userRepository.find(user => user.email === email);
-  }
-
-  async register(u: CreateUserDto): Promise<boolean> {
-    return true;
   }
 }

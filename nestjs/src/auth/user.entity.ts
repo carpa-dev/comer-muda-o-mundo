@@ -5,6 +5,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
@@ -28,10 +29,15 @@ export class User {
   isActive: boolean;
 
   @BeforeInsert()
-  async hashPassword(): Promise<void> {
-    this.password = await bcrypt.hash(this.password, 10);
+  @BeforeUpdate()
+  async hashPassword(): Promise<any> {
+    this.password = await hash(this.password);
   }
 
   @CreateDateColumn() createdAt: Date;
   @UpdateDateColumn() updatedAt: Date;
+}
+
+export function hash(password): Promise<string> {
+  return bcrypt.hash(password, 10);
 }

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
-import { UsersModule } from '../src/users/users.module';
 import { AppModule } from '../src/app.module';
 import { MockTypeOrmConfigService } from './test.utils';
 import { TypeOrmConfigService } from '../src/typeorm.service';
@@ -17,6 +17,8 @@ describe('Users (e2e)', () => {
       .compile();
 
     app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe());
+
     await app.init();
   });
 
@@ -45,6 +47,32 @@ describe('Users (e2e)', () => {
           userId: 1,
           email: 'test@example.com',
         });
+    });
+
+    it('should activate', async () => {
+      let newToken;
+      const NEW_PASSWORD = 'mynewepassword';
+
+      await request(app.getHttpServer())
+        .post('/activation')
+        .send({ password: NEW_PASSWORD })
+        .set('Authorization', 'Bearer ' + creds.access_token)
+        .expect(201)
+        .expect(res => {
+          expect(res.body.access_token).toBeTruthy();
+          newToken = res.body.access_token;
+        });
+
+      // old login shouldn't work anymore
+      await request(app.getHttpServer())
+        .post('/auth/login')
+        .send({ email: 'test@example.com', password: 'changeme' })
+        .expect(401);
+
+      return request(app.getHttpServer())
+        .post('/auth/login')
+        .send({ email: 'test@example.com', password: NEW_PASSWORD })
+        .expect(201);
     });
   });
 });

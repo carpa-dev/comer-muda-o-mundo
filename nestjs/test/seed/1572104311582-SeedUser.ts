@@ -1,6 +1,6 @@
 import { MigrationInterface, getRepository, QueryRunner } from 'typeorm';
-import { newUserCompileTime } from '../../src/users/create-user.dto';
-import { User } from '../../src/users/user.entity';
+import { newUserCompileTime } from '../../src/auth/create-user.dto';
+import { User } from '../../src/auth/user.entity';
 
 const USER = {
   name: 'test',
@@ -9,7 +9,6 @@ const USER = {
 export class RegisterUnactiveUser1572104311582 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const firstUser = newUserCompileTime(USER);
-
     await getRepository(User).save(firstUser);
   }
 

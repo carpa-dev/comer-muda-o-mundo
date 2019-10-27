@@ -1,6 +1,6 @@
 import { TypeOrmConfigService } from '../src/typeorm.service';
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { User } from '../src/users/user.entity';
+import { User } from '../src/auth/user.entity';
 import { BASE_OPTIONS } from '../src/typeorm.service';
 
 export class MockTypeOrmConfigService implements TypeOrmOptionsFactory {
