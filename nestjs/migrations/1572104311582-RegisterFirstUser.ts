@@ -1,12 +1,12 @@
 import { MigrationInterface, getRepository, QueryRunner } from 'typeorm';
-import { newUserCompileTime } from '../src/users/create-user.dto';
-import { User } from '../src/users/user.entity';
+import { newUserCompileTime } from '../src/auth/create-user.dto';
+import { User } from '../src/auth/user.entity';
 
 const USER = {
   name: 'admin',
   email: 'contato@carpa.dev',
 };
-export class RegisterEduardoUser1572104311582 implements MigrationInterface {
+export class RegisterFirstUser1572104311582 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     const firstUser = newUserCompileTime(USER);
 

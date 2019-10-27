@@ -4,7 +4,7 @@ import NextApp, { Container } from 'next/app';
 import React from 'react';
 import theme from '../config/theme';
 import ErrorComponent from '../containers/error';
-import { registerInterceptors } from '@api/axios';
+import { axiosV1, registerInterceptors } from '@api/axios';
 import Router from 'next/router';
 import { logout } from '@api/auth';
 import '@styles/main.css';
@@ -19,7 +19,7 @@ class App extends NextApp {
       jssStyles.parentNode.removeChild(jssStyles);
     }
 
-    registerInterceptors({
+    registerInterceptors(axiosV1, {
       onError: error => {
         this.setState({
           error,

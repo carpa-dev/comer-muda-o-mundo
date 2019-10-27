@@ -10,7 +10,7 @@ import {
 import { IsEmail } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
 
-@Entity()
+@Entity({ name: 'app_user' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

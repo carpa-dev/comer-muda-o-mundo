@@ -6,8 +6,12 @@ const express = require('express');
 const next = require('next');
 
 const devProxy = {
-  '/api': {
+  '/api/v1': {
     target: 'http://office:3333/',
+    changeOrigin: true,
+  },
+  '/api/v2': {
+    target: 'http://office:3001/',
     changeOrigin: true,
   },
 };

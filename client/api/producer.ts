@@ -1,12 +1,23 @@
 import * as yup from 'yup';
-import { axios } from './axios';
+import { axiosV1 as axios, axiosV2 } from './axios';
 import {
   Producer,
   NewProducer,
   ProducerSchema,
   NewProducerSchema,
   ProducersSchema,
+  NewInitiative,
 } from '@models/producer';
+
+export function saveV2(data: NewInitiative): Promise<Producer> {
+  return NewProducerSchema.validate({ ...data, isPublished: true }).then(
+    (value: NewProducer) => {
+      return axiosV2.post('/initiatives', value).then(res => {
+        return ProducerSchema.validate(res.data);
+      });
+    }
+  );
+}
 
 export function save(data: NewProducer): Promise<Producer> {
   return NewProducerSchema.validate(data).then((value: NewProducer) => {

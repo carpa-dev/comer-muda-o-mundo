@@ -1,4 +1,4 @@
-import { axios } from './axios';
+import { axiosV1, axiosV2 } from './axios';
 import { Maybe } from 'true-myth';
 import Cookie from 'js-cookie';
 import { AxiosResponse } from 'axios';
@@ -16,11 +16,14 @@ interface Token {
 }
 
 export function login(data: { uid: string; password: string }) {
-  return axios.post('/api/v1/auth/login', data);
+  return axiosV1.post('/api/v1/auth/login', data);
 }
 
+export function login2(data: { email: string; password: string }) {
+  return axiosV2.post('/auth/login', data);
+}
 export function refreshToken(refreshToken: string) {
-  return axios
+  return axiosV1
     .post('/api/v1/auth/refresh', { refresh_token: refreshToken })
     .then((res: AxiosResponse) => res.data)
     .then((token: Token) => saveAuthToken(token));
@@ -32,7 +35,10 @@ interface AuthHeader {
 
 export function saveAuthToken(data: Token) {
   // window.localStorage.setItem(TOKEN_NAME, JSON.stringify(data));
+
   Cookie.set(TOKEN_NAME, data);
+
+  //Cookie.set(TOKEN_NAME, '{}');
 }
 
 export function getAuthToken(): Maybe<Token> {

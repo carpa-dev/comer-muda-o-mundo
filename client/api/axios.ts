@@ -1,12 +1,16 @@
-import Axios from 'axios';
+import Axios, { AxiosInstance } from 'axios';
 import { getAuthorizationHeader, refreshToken, getAuthToken } from './auth';
 
-export const axios = Axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '/' : 'http://office:3333/',
+export const axiosV1 = Axios.create({
+  //  baseURL: process.env.NODE_ENV === 'production' ? '/' : 'http://office:3333/',
+});
+
+export const axiosV2 = Axios.create({
+  baseURL: '/api/v2',
 });
 
 function addReqIntercept() {
-  return axios.interceptors.request.use(req => {
+  return axiosV1.interceptors.request.use(req => {
     req.headers = {
       ...req.headers,
       ...getAuthorizationHeader(),
@@ -15,13 +19,16 @@ function addReqIntercept() {
     return req;
   });
 }
-export function registerInterceptors({
-  onError,
-  onNotLoggedIn,
-}: {
-  onError: (error: Error) => void;
-  onNotLoggedIn: () => void;
-}) {
+export function registerInterceptors(
+  axios: AxiosInstance,
+  {
+    onError,
+    onNotLoggedIn,
+  }: {
+    onError: (error: Error) => void;
+    onNotLoggedIn: () => void;
+  }
+) {
   let errorInterceptor = addResIntercept();
   const authInterceptor = addReqIntercept();
 

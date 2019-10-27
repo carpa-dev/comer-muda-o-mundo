@@ -1,4 +1,4 @@
-import { axios } from './axios';
+import { axiosV1 as axios } from './axios';
 import { PublicInitiative } from '@models/publicInitiative';
 
 export function getAll(): Promise<PublicInitiative[]> {

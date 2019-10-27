@@ -11,7 +11,12 @@ import { NewProducer } from '@models/producer';
 
 function NewProducerComponent() {
   const onSave = async (np: NewProducer) => {
-    const producer = await ProducerAPI.save(np);
+    try {
+      const producer2 = await ProducerAPI.saveV2(np);
+    } catch (e) {
+      console.log('error', e);
+    }
+
     Router.push('/admin/producers');
   };
 

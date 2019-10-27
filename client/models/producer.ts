@@ -26,6 +26,18 @@ export const NewProducerSchema = yup.object({
     .string()
     .nullable()
     .default(''),
+  isPublished: yup.boolean().default(false),
+});
+
+export const NewInitiativeSchema = yup.object({
+  name: yup.string().required(),
+  address: yup.string().required(),
+  ...latLong,
+  post: yup
+    .string()
+    .nullable()
+    .default(''),
+  isPublished: yup.boolean().default(false),
 });
 
 export const ProducerSchema = yup.object({
@@ -37,11 +49,12 @@ export const ProducerSchema = yup.object({
     .string()
     .nullable()
     .default(''),
-  created_at: yup.date().required(),
-  updated_at: yup.date().required(),
+  createdAt: yup.date().required(),
+  updatedAt: yup.date().required(),
 });
 
 export const ProducersSchema = yup.array(ProducerSchema);
 
 export type NewProducer = yup.InferType<typeof NewProducerSchema>;
+export type NewInitiative = yup.InferType<typeof NewInitiativeSchema>;
 export type Producer = yup.InferType<typeof ProducerSchema>;
