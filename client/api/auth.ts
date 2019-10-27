@@ -22,6 +22,11 @@ export function login(data: { uid: string; password: string }) {
 export function login2(data: { email: string; password: string }) {
   return axiosV2.post('/auth/login', data);
 }
+
+export function activate(data: { password: string }) {
+  return axiosV2.post('/activation', data);
+}
+
 export function refreshToken(refreshToken: string) {
   return axiosV1
     .post('/api/v1/auth/refresh', { refresh_token: refreshToken })
