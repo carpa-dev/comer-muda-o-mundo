@@ -29,7 +29,7 @@
     "formik": "^1.5.8",
     "immutable": "^4.0.0-rc.12",
     "js-cookie": "^2.2.1",
-    "markdown-to-jsx": "^6.10.3",
+    "markdown-to-jsx": "^6.11.4",
     "next": "^9.3.2",
     "next-cookies": "^1.1.2",
     "react": "^16.8.6",
