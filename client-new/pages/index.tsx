@@ -1,6 +1,17 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Home({ initiatives }) {
+  const init = initiatives.map((a) => (
+    <li key={a.slug}>
+      <Link href={'/initiatives/' + a.slug}>
+        <a>{a.title}</a>
+      </Link>
+
+      {a.description}
+    </li>
+  ));
+
   return (
     <div>
       <Head>
@@ -9,9 +20,8 @@ export default function Home({ initiatives }) {
       </Head>
 
       <main>
-        <h1 className="font-mono text-4xl text-teal-600">
-          initiatives {JSON.stringify(initiatives)}
-        </h1>
+        <h1 className="font-mono text-4xl text-teal-600">Initiatives</h1>
+        <ul>{init}</ul>
       </main>
     </div>
   );

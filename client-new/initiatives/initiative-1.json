@@ -1,4 +1,5 @@
 {
   "title": "my initiative",
-  "description": "my description"
+  "description": "my description",
+  "slug": "my-slug"
 }
