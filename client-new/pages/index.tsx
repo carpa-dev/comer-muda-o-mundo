@@ -1,6 +1,6 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
-export default function Home() {
+export default function Home({ initiatives }) {
   return (
     <div>
       <Head>
@@ -10,9 +10,20 @@ export default function Home() {
 
       <main>
         <h1 className="font-mono text-4xl text-teal-600">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          initiatives {JSON.stringify(initiatives)}
         </h1>
       </main>
     </div>
-  )
+  );
+}
+
+export async function getStaticProps() {
+  const initiatives = await (async (context) => {
+    const keys = context.keys();
+    return keys.map(context);
+  })(require.context('../initiatives', false, /\.json/));
+
+  // TODO:
+  // validate schema
+  return { props: { initiatives } };
 }
