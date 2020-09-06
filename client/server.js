@@ -1,13 +1,11 @@
-// inspired by
-// https://github.com/zeit/next.js/tree/master/examples/with-custom-reverse-proxy
-
 /* eslint-disable no-console */
 const express = require('express');
 const next = require('next');
 
 const devProxy = {
-  '/api': {
-    target: 'http://office:3333/',
+  '/proxy': {
+    target: 'http://localhost:8081/',
+    pathRewrite: { '^/proxy': '/' },
     changeOrigin: true,
   },
 };
@@ -30,23 +28,23 @@ app
 
     // Set up the proxy.
     if (dev && devProxy) {
-      const proxyMiddleware = require('http-proxy-middleware');
-      Object.keys(devProxy).forEach(function(context) {
-        server.use(proxyMiddleware(context, devProxy[context]));
+      const { createProxyMiddleware } = require('http-proxy-middleware');
+      Object.keys(devProxy).forEach(function (context) {
+        server.use(context, createProxyMiddleware(devProxy[context]));
       });
     }
 
     // Default catch-all handler to allow Next.js to handle all other routes
     server.all('*', (req, res) => handle(req, res));
 
-    server.listen(port, err => {
+    server.listen(port, '0.0.0.0', (err) => {
       if (err) {
         throw err;
       }
       console.log(`> Ready on port ${port} [${env}]`);
     });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('An error occurred, unable to start the server');
     console.log(err);
   });
