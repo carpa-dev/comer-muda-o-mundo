@@ -13,6 +13,7 @@
     "@google/markerclustererplus": "^5.1.0",
     "@now/node": "^1.8.1",
     "@types/simple-oauth2": "^4.1.0",
+    "netlify-cms": "^2.10.56",
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
