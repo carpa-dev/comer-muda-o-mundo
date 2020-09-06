@@ -7,8 +7,7 @@
 # Uncomment for local dev
 backend:
   name: proxy
-  proxy_url: http://office:8081/api/v1
-  branch: test # optional, defaults to master
+  proxy_url: /proxy/api/v1
 
 #publish_mode: editorial_workflow
 media_folder: "public/images/uploads"

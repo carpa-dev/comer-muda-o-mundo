@@ -31,9 +31,10 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 ## Running netlify CMS locall
+
 In a terminal tab (or tmux pane), run
 
-`npm run cmd:local`
+`npm run cms:local`
 
 In `public/admin/config.yml` uncomment the local dev block
 
