@@ -1,10 +1,11 @@
 import type { AppProps as NextAppProps } from 'next/app';
+import Head from 'next/head';
 import type { ComponentType, ReactNode } from 'react';
-import Link from 'next/link';
 import { Fragment } from 'react';
 
 import type { GlobalExploreMapState } from '../components/explore/global-state';
 import { useGlobalExploreMap } from '../components/explore/global-state';
+import { AppBar } from '../components/navigation/AppBar';
 
 import '../styles/tailwind.css';
 import '../styles/global.css';
@@ -29,14 +30,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Fragment>
-      <header className="w-full h-12 bg-yellow-400 shadow">
-        <Link href="/">
-          <a>cmom</a>
-        </Link>
-        <Link href="/sobre">
-          <a>sobre</a>
-        </Link>
-      </header>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        /> 
+      </Head>
+      <AppBar />
       <main className="w-full h-full relative">
         <Layout {...globalExploreMapState}>
           <Component {...globalExploreMapState} {...pageProps} />
