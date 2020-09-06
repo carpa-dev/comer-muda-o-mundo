@@ -1,9 +1,14 @@
 import Head from 'next/head';
 import { Fragment } from 'react';
 
+import type { InteractiveMap, Markers } from '../components/maps/google-maps';
 import { ExploreMapLayout } from '../components/explore/ExploreMap';
+import { useInitiativesOnMap } from '../components/explore/ExploreMapInitiatives';
 
 interface HomeProps {
+  map: InteractiveMap;
+  markers: Markers;
+  onMarkersInit: (markers: Markers) => void;
   initiatives: {
     title: string;
     description: string;
@@ -16,10 +21,10 @@ interface HomeProps {
  * CMS:
  * titulo
  * descrição
- * centro inicial do mapa (?)
- * zoom inicial do mapa (?)
  */
-export default function Home({ initiatives }: HomeProps) {  
+export default function Home({ initiatives, map, markers, onMarkersInit }: HomeProps) {  
+  useInitiativesOnMap(map, markers, initiatives, onMarkersInit);
+
   return (
     <Fragment>
       <Head>

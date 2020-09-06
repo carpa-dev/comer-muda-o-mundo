@@ -55,39 +55,31 @@ export type InteractiveMap =
   | { init: true; map: google.maps.Map<HTMLElement> };
 
 /**
- * Create an interactive map.
- * https://developers.google.com/maps/documentation/javascript/reference/map
+ * Create a global interactive map.
  *
- * @param id of HTML element to serve as container
- * @param options https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions
+ * TODO: imperatively set center and zoom based on
+ * options change (?)
+ *
+ * See:
+ * https://developers.google.com/maps/documentation/javascript/reference/map
+ * https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions
  */
 export function useInteractiveMap(
-  id: string,
-  options: google.maps.MapOptions
-): InteractiveMap {
+  mapContainer: HTMLElement | undefined,
+  map: InteractiveMap,
+  options: google.maps.MapOptions,
+  onMapInit: (map: InteractiveMap) => void
+) {
   const api = useGoogleMaps();
-  const [mapRef, setMapRef] = useState<
-    google.maps.Map<HTMLElement> | undefined
-  >(undefined);
 
   useEffect(() => {
-    if (!api.init) {
+    if (!api.init || !mapContainer || map.init) {
       return;
     }
 
-    const wrapper = document.getElementById(id);
-
-    if (!wrapper) {
-      return;
-    }
-
-    console.log('useinteractivemap');
-    const map = new api.google.maps.Map(wrapper, options);
-
-    setMapRef(map);
-  }, [api.init]);
-
-  return mapRef ? { init: true, map: mapRef } : { init: false };
+    const newMap = new api.google.maps.Map(mapContainer, options);
+    onMapInit({ init: true, map: newMap });
+  }, [api.init, map.init, mapContainer]);
 }
 
 export type Markers =
@@ -95,33 +87,31 @@ export type Markers =
   | { init: true; markers: google.maps.Marker[] };
 
 /**
- * Create markers on the map.
+ * Create global markers on the map.
+ *
+ * TODO: imperatively hide markers base on markerOptions (?)
  *
  * https://developers.google.com/maps/documentation/javascript/adding-a-google-map
  */
 export function useMarkers(
   interactiveMap: InteractiveMap,
-  markerOptions: Omit<google.maps.ReadonlyMarkerOptions, 'map'>[]
-): Markers {
-  const [markersRef, setMarkersRef] = useState<
-    google.maps.Marker[] | undefined
-  >(undefined);
-
+  markers: Markers,
+  markerOptions: Omit<google.maps.ReadonlyMarkerOptions, 'map'>[],
+  onMarkersInit: (markers: Markers) => void
+) {
   useEffect(() => {
-    if (!interactiveMap.init) {
+    if (!interactiveMap.init || markers.init) {
       return;
     }
 
     // TODO: marker images
-    const markers = markerOptions.map(
+    const newMarkers = markerOptions.map(
       (options) =>
         new google.maps.Marker({ map: interactiveMap.map, ...options })
     );
 
-    setMarkersRef(markers);
-  }, [interactiveMap.init, (interactiveMap as any).map]);
-
-  return markersRef ? { init: true, markers: markersRef } : { init: false };
+    onMarkersInit({ init: true, markers: newMarkers });
+  }, [interactiveMap.init, markers.init]);
 }
 
 export type MarkerClustererPlus =
@@ -158,19 +148,15 @@ export type MarkerClusters =
 /**
  * Create marker clusters on the map.
  *
+ * TODO: save state and cleanup
+ *
  * https://developers.google.com/maps/documentation/javascript/marker-clustering
  */
 export function useMarkerCluster(
   interactiveMap: InteractiveMap,
   markerOptions: Omit<google.maps.ReadonlyMarkerOptions, 'map'>[]
-): MarkerClusters {
+) {
   const api = useMarkerClustererPlus();
-  const [markersRef, setMarkersRef] = useState<
-    google.maps.Marker[] | undefined
-  >(undefined);
-  const [markerClusterRef, setMarkerClusterRef] = useState<
-    MarkerClusterer | undefined
-  >(undefined);
 
   useEffect(() => {
     if (!interactiveMap.init || !api.init) {
@@ -181,17 +167,10 @@ export function useMarkerCluster(
       (options) => new google.maps.Marker(options)
     );
 
-    const markerCluster = new api.MarkerClusterer(interactiveMap.map, markers, {
+    new api.MarkerClusterer(interactiveMap.map, markers, {
       // TODO: cluster images
       imagePath:
         'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
     });
-
-    setMarkersRef(markers);
-    setMarkerClusterRef(markerCluster);
   }, [interactiveMap.init, (interactiveMap as any).map, api.init]);
-
-  return markersRef && markerClusterRef
-    ? { init: true, cluster: markerClusterRef, markers: markersRef }
-    : { init: false };
 }

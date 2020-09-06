@@ -1,25 +1,17 @@
 import type { AppProps as NextAppProps } from 'next/app';
 import type { ComponentType, ReactNode } from 'react';
 import Link from 'next/link';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment } from 'react';
+
+import type { GlobalExploreMapState } from '../components/explore/global-state';
+import { useGlobalExploreMap } from '../components/explore/global-state';
 
 import '../styles/tailwind.css';
 import '../styles/global.css';
 
-interface AppState {
-  center: google.maps.LatLngLiteral;
-  zoom: number;
-}
+type AppState = GlobalExploreMapState;
 
-// TODO: save last map state
-const appInitialState: AppState = {
-  center: { lat: -28.024, lng: 140.887 },
-  zoom: 3,
-};
-
-type LayoutProps = AppState & {
-  onMapInit(map: any): void;
-};
+type LayoutProps = AppState;
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
@@ -28,11 +20,7 @@ interface AppProps extends NextAppProps {
 }
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [map, setMap] = useState<any>(undefined);
-  const onMapInit = useCallback((map: any) => {
-    setMap(map);
-  }, [setMap]);
-  console.log(map)
+  const globalExploreMapState = useGlobalExploreMap();
 
   // Persistent layout between groups of pages
   // (but not *all* pages)
@@ -45,10 +33,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <Link href="/">
           <a>cmom</a>
         </Link>
+        <Link href="/sobre">
+          <a>sobre</a>
+        </Link>
       </header>
       <main className="w-full h-full relative">
-        <Layout {...appInitialState} onMapInit={onMapInit}>
-          <Component {...pageProps} />
+        <Layout {...globalExploreMapState}>
+          <Component {...globalExploreMapState} {...pageProps} />
         </Layout>
       </main>
     </Fragment>
@@ -56,6 +47,5 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 
 function NoLayout(props: { children: ReactNode }) {
-  console.log('no layout');
   return <Fragment>{props.children}</Fragment>;
 }
