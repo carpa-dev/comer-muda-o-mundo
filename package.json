@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "cms:local": "netlify-cms-proxy-server",
-    "deploy": "vercel"
+    "deploy": "vercel --token $NOW_TOKEN"
   },
   "dependencies": {
     "@google/markerclustererplus": "^5.1.0",
