@@ -1,0 +1,29 @@
+#backend:
+#  name: github
+#  branch: test
+#  repo: carpa-dev/comer-muda-o-mundo
+
+
+# Uncomment for local dev
+backend:
+  name: proxy
+  proxy_url: /proxy/api/v1
+
+#publish_mode: editorial_workflow
+media_folder: "public/images/uploads"
+public_folder: "images/uploads"
+
+
+collections:
+  - name: "initiatives" # Used in routes, e.g., /admin/collections/blog
+    label: "initiatives" # Used in the UI
+    folder: "initiatives" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    extension: "json"
+    format: "json"
+    fields: # The fields for each document, usually in front matter
+      - {label: "Name", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime", }
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Description", name: "description", widget: "string"}

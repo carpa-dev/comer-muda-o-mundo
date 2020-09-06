@@ -1,0 +1,13 @@
+@tailwind base;
+
+/* Your own custom base styles */
+
+@tailwind components;
+
+/* Your own custom component styles */
+
+/* Start purging... */
+@tailwind utilities;
+/* Stop purging. */
+
+/* Your own custom utilities */
