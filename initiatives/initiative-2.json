@@ -1,10 +1,11 @@
-
 {
-  "title": "my initiative 2",
+  "title": "my initiative 222",
   "description": "my description 2",
   "slug": "my-slug2",
   "position": {
     "lat": -33.718234,
     "lng": 150.363181
-  }
+  },
+  "date": "2020-09-06T21:10:20.967Z",
+  "body": "my initiative 2"
 }
