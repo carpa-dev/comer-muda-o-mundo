@@ -6,13 +6,17 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "next start",
-    "cms:local": "netlify-cms-proxy-server"
+    "cms:local": "netlify-cms-proxy-server",
+    "vercel": "vercel"
   },
   "dependencies": {
     "@google/markerclustererplus": "^5.1.0",
+    "@now/node": "^1.8.1",
+    "@types/simple-oauth2": "^4.1.0",
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "simple-oauth2": "^4.1.0",
     "tailwindcss": "^1.8.0"
   },
   "devDependencies": {

@@ -1,13 +1,15 @@
-#backend:
-#  name: github
-#  branch: test
-#  repo: carpa-dev/comer-muda-o-mundo
+backend:
+  name: github
+  branch: master
+  repo: carpa-dev/comer-muda-o-mundo
+  auth_endpoint: /api/auth
+  base_url: https://comer-muda-o-mundo.eham.vercel.app
 
 
 # Uncomment for local dev
-backend:
-  name: proxy
-  proxy_url: /proxy/api/v1
+#backend:
+#  name: proxy
+#  proxy_url: /proxy/api/v1
 
 #publish_mode: editorial_workflow
 media_folder: "public/images/uploads"
