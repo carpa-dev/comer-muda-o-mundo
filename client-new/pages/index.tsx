@@ -5,6 +5,15 @@ import { Fragment } from 'react';
 import { ExploreMap } from '../components/explore/ExploreMap';
 import styles from '../styles/Home.module.css';
 
+interface HomeProps {
+  initiatives: {
+    title: string;
+    description: string;
+    slug: string;
+    position: google.maps.LatLngLiteral;
+  }[];
+}
+
 /**
  * CMS:
  * titulo
@@ -12,7 +21,7 @@ import styles from '../styles/Home.module.css';
  * centro inicial do mapa (?)
  * zoom inicial do mapa (?)
  */
-export default function Home({ initiatives }) {
+export default function Home({ initiatives }: HomeProps) {
   const init = initiatives.map((a) => (
     <li key={a.slug}>
       <Link href={'/initiatives/' + a.slug}>
@@ -22,7 +31,9 @@ export default function Home({ initiatives }) {
       {a.description}
     </li>
   ));
-
+  const center = {lat: -28.024, lng: 140.887};
+  const zoom = 3;
+  
   return (
     <Fragment>
       <Head>
@@ -33,7 +44,11 @@ export default function Home({ initiatives }) {
       <main className={styles.main}>
         <h1 className="font-mono text-4xl text-teal-600">Initiatives</h1>
         <ul>{init}</ul>
-        <ExploreMap />
+        <ExploreMap
+          center={center}
+          zoom={zoom}
+          places={initiatives}
+        />
       </main>
     </Fragment>
   );

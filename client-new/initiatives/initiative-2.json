@@ -2,5 +2,9 @@
 {
   "title": "my initiative 2",
   "description": "my description 2",
-  "slug": "my-slug2"
+  "slug": "my-slug2",
+  "position": {
+    "lat": -33.718234,
+    "lng": 150.363181
+  }
 }
