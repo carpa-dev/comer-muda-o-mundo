@@ -3,7 +3,9 @@
   "description": "my description",
   "slug": "my-slug",
   "position": {
-    "lat": -31.563910,
+    "lat": -31.56391,
     "lng": 147.154312
-  }
+  },
+  "date": "2020-09-06T20:38:43.992Z",
+  "body": "joijoijoi"
 }
