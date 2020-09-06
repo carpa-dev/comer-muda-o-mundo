@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-type GoogleMaps = |
+export type GoogleMaps = |
   { init: false } |
   { init: true, google: typeof window.google };
 
@@ -52,7 +52,7 @@ export function useGoogleMaps(): GoogleMaps {
     : { init };
 }
 
-type InteractiveMap = |
+export type InteractiveMap = |
   { init: false } |
   { init: true, map: google.maps.Map<HTMLElement> };
 
@@ -70,7 +70,7 @@ export function useInteractiveMap(
   const api = useGoogleMaps();
   const [mapRef, setMapRef] = useState<google.maps.Map<HTMLElement>|undefined>(undefined);
 
-  useEffect(() => {  
+  useEffect(() => {
     if (!api.init) {
       return;
     }
@@ -81,6 +81,7 @@ export function useInteractiveMap(
       return;
     }
   
+    console.log('useinteractivemap')
     const map = new api.google.maps.Map(wrapper, options);
 
     setMapRef(map);
@@ -91,7 +92,7 @@ export function useInteractiveMap(
     : { init: false };
 }
 
-type Markers = |
+export type Markers = |
   { init: false } |
   { init: true, markers: google.maps.Marker[] };
 
@@ -124,7 +125,7 @@ export function useMarkers(
     : { init: false };
 }
 
-type MarkerClustererPlus = |
+export type MarkerClustererPlus = |
   { init: false } |
   { init: true, MarkerClusterer: typeof MarkerClusterer };
 
@@ -151,7 +152,7 @@ export function useMarkerClustererPlus(): MarkerClustererPlus {
     : { init: false };
 }
 
-type MarkerClusters = |
+export type MarkerClusters = |
   { init: false } |
   { init: true, cluster: MarkerClusterer, markers: google.maps.Marker[] };
 

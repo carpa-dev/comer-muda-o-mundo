@@ -1,6 +1,14 @@
-export default function Initiative({ initiative }) {
-  return <div>initiative {JSON.stringify(initiative)}</div>;
+import { ExploreMapLayout } from '../../components/explore/ExploreMap';
+
+export default function Initiative({ initiative }: any) {
+  return (
+    <div className="absolute top-0 right-0 bg-white">
+      initiative {JSON.stringify(initiative)}
+    </div>
+  );
 }
+
+Initiative.Layout = ExploreMapLayout;
 
 export async function getStaticProps({ ...ctx }) {
   const { initiative } = ctx.params;
@@ -11,7 +19,7 @@ export async function getStaticProps({ ...ctx }) {
     return keys.map(context);
   })(require.context('../../initiatives', false, /\.json/));
 
-  const ini = initiatives.find((a) => a.slug === initiative);
+  const ini = initiatives.find((a: any) => a.slug === initiative);
   if (!ini) {
     throw new Error('Couldnt find initiative with slug: ' + initiative);
   }
@@ -24,7 +32,7 @@ export async function getStaticPaths() {
     const keys = context.keys();
     const value = keys.map(context);
 
-    return value.map((a) => a.slug);
+    return value.map((a: any) => a.slug);
   })(require.context('../../initiatives', true, /\.json/));
 
   // TODO
