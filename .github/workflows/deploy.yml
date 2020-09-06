@@ -20,7 +20,7 @@ jobs:
     - name: deploy
       run: |
         npm install
-        vercel --token=$NOW_TOKEN
+        vercel --confirm --token=$NOW_TOKEN
 
 
       env:
