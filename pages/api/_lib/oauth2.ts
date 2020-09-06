@@ -1,9 +1,6 @@
 import { AuthorizationCode } from 'simple-oauth2';
 
 export const create = () => {
-  console.log('OAUTH_CLIENT_ID', process.env.OAUTH_CLIENT_ID);
-  console.log('OAUTH_CLIENT_SECRET', process.env.OAUTH_CLIENT_SECRET);
-
   return new AuthorizationCode({
     client: {
       id: process.env.OAUTH_CLIENT_ID || 'failed',
@@ -23,7 +20,7 @@ type RenderBody = {
 };
 
 // TODO: type
-export const renderBody: RenderBody = (status, content) => `
+export const renderBody: RenderBody = (status: string, content: any) => `
 <script>
   const receiveMessage = (message) => {
     window.opener.postMessage(
