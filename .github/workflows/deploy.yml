@@ -12,68 +12,15 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [12.x]
 
     steps:
+
     - uses: actions/checkout@v1
-    
-    - name: Setup node
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
 
-    - name: nestjs
-      run: |
-        cd nestjs
-        npm install
-        npm run test
-        npm run build
-
-    - name: server
-      run: |
-        cd adonis
-        npm install
-        npm run adonis -- migration:run
-        npm run adonis -- seed        
-        npm run test
-      env:
-        NODE_ENV: testing
-        ENV_PATH: .env.testing
-
-    - name: migration
-      run: |
-        cd adonis
-        npm install
-        npm run adonis -- migration:run
-
-        cd ../nestjs
-        npm run typeorm -- migration:run
-      env:
-        ENV_SILENT: true
-        APP_KEY: ${{ secrets.APP_KEY }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        DATABASE_SSL: true
-
-    - name: nextjs
-      run: |
-        cd client
-        npm install
-        npm run build --if-present
+    - name: Vercel Action
+      uses: amondnet/vercel-action@v19.0.1+3
 
       env:
         CI: true
-        APP_KEY: ${{ secrets.APP_KEY }}
-        GOOGLE_MAPS_KEY: ${{ secrets.GOOGLE_MAPS_KEY }}
-
-    - name: deploy
-      run: |
-        bash scripts/deploy.sh \
-          -e DB_CONNECTION=pg \
-          --token="$NOW_TOKEN"
-
-      env:
-        CI: true
-        APP_KEY: ${{ secrets.APP_KEY }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        GOOGLE_MAPS_KEY: ${{ secrets.GOOGLE_MAPS_KEY }}
         NOW_TOKEN: ${{ secrets.NOW_TOKEN }}
