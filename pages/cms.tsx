@@ -65,7 +65,7 @@ export default function Cms() {
     // TODO:
     // type this properly
     import('netlify-cms' as any).then((mod) => {
-      mod.init(config);
+      mod.init({ config });
     });
   }, []);
 
