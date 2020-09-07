@@ -43,7 +43,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <AppBar />
       <main className="w-full h-full relative overflow-hidden">
         {getLayout(
-          <AnimatePresence initial={false} exitBeforeEnter>
+          <AnimatePresence initial={false}>
             <Component key={router.route} {...appState} {...pageProps} />
           </AnimatePresence>
         )}

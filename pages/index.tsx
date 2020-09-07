@@ -5,6 +5,7 @@ import { useExploreMap } from '../components/explore/ExploreMap';
 import { getExploreMapLayout } from '../components/explore/ExploreMapLayout';
 import { useInitiativesOnMap } from '../components/explore/ExploreMapInitiatives';
 import { PageWrapper } from '../components/navigation/PageWrapper';
+import { InitiativePreview } from '../components/explore/InitiativePreview';
 
 interface HomeProps {
   map: InteractiveMap;
@@ -42,6 +43,7 @@ export default function Home({
         <title>comer muda o mundo</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <InitiativePreview initiatives={initiatives} />
     </PageWrapper>
   );
 }

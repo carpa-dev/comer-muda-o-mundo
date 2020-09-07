@@ -8,20 +8,22 @@ export function useInitiativesOnMap(
   map: InteractiveMap,
   markers: Markers,
   initiatives: any,
-  onMarkersInit: (markers: Markers) => void,
+  onMarkersInit: (markers: Markers) => void
 ) {
   const router = useRouter();
-  
+
   useMarkers(map, markers, initiatives, onMarkersInit);
 
   useEffect(() => {
     if (!markers.init) {
       return () => {};
     }
-    
+
     const listeners = markers.markers.map((marker, i) =>
       marker.addListener('click', () => {
-        router.push(`/initiatives/${initiatives[i].slug}`);
+        router.push(`/?initiative=${initiatives[i].slug}`, undefined, {
+          shallow: true,
+        });
       })
     );
 

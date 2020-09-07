@@ -12,7 +12,7 @@ export const PageOverlayWrapper = memo(function PageOverlayWrapper({
 }: PageOverlayWrapperProps) {
   return (
     <motion.div
-      className="w-full h-full absolute top-0 right-0 p-2 py-20 bg-white"
+      className="w-full h-full absolute top-0 right-0 px-4 py-20 bg-white"
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 100 }}

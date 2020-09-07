@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 export const AppBar = memo(function AppBar() {
   return (
-    <header className="w-full h-12 fixed p-2 z-10 bg-yellow-300 shadow">
+    <header className="w-full h-12 fixed px-4 py-2 z-10 bg-yellow-300 shadow">
       <nav className="w-full h-full flex items-center justify-between">
         <Link href="/">
           <a className="inline-block font-bold text-teal-500 tracking-wide">

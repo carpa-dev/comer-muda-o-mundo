@@ -4,7 +4,9 @@ import { PageOverlayWrapper } from '../../components/navigation/PageOverlayWrapp
 export default function Initiative({ initiative }: any) {
   return (
     <PageOverlayWrapper>
-      initiative {JSON.stringify(initiative)}
+      <h1 className="mb-4 font-bold text-xl">{initiative.title}</h1>
+      <p className="mb-4">{initiative.description}</p>
+      <p>{initiative ? JSON.stringify(initiative) : null}</p>
     </PageOverlayWrapper>
   );
 }
