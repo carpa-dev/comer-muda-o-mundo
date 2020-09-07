@@ -1,3 +1,9 @@
+import { PageWrapper } from '../components/navigation/PageWrapper';
+
 export default function About() {
-  return 'sobre cmom';
+  return (
+    <PageWrapper>
+      sobre cmom
+    </PageWrapper>
+  );
 }

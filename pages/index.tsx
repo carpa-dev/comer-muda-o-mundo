@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Fragment } from 'react';
 
 import type { InteractiveMap, Markers } from '../components/maps/google-maps';
-import { ExploreMapLayout } from '../components/explore/ExploreMap';
+import { getExploreMapLayout } from '../components/explore/ExploreMap';
 import { useInitiativesOnMap } from '../components/explore/ExploreMapInitiatives';
 
 interface HomeProps {
@@ -35,7 +35,7 @@ export default function Home({ initiatives, map, markers, onMarkersInit }: HomeP
   );
 }
 
-Home.Layout = ExploreMapLayout;
+Home.getLayout = getExploreMapLayout();
 
 export async function getStaticProps() {
   const initiatives = await (async (context) => {

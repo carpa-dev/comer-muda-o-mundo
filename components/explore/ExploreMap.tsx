@@ -1,25 +1,30 @@
-import type { ReactNode } from 'react';
 import { Fragment, useEffect } from 'react';
 
 import type { InteractiveMap } from '../maps/google-maps';
 import { useInteractiveMap } from '../maps/google-maps';
+import { PageOverlayWrapper } from '../navigation/PageOverlayWrapper';
 import type { GlobalExploreMapState } from './global-state';
 import styles from './ExploreMap.module.css';
 
-type ExploreMapLayoutProps = GlobalExploreMapState & {
-  children: ReactNode;
+interface ExploreMapLayoutOptions {
+  overlay: boolean;
 }
 
 /**
- * Shared map between pages.
+ * Shared map between pages with an optional content overlay.
  */
-export function ExploreMapLayout({ children, ...props }: ExploreMapLayoutProps) {
-  return (
-    <Fragment>
-      <ExploreMap {...props} />
-      {children}
-    </Fragment>
-  );
+export function getExploreMapLayout(options: ExploreMapLayoutOptions = { overlay: false }) {
+  return (layoutOptions: GlobalExploreMapState, page: JSX.Element) => {
+    return (
+      <Fragment>
+        <ExploreMap {...layoutOptions} />
+        {!options.overlay ? page : null}
+        <PageOverlayWrapper show={options.overlay}>
+          {page}
+        </PageOverlayWrapper>
+      </Fragment>
+    );
+  }
 }
 
 // TODO: create configuration

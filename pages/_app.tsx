@@ -1,6 +1,5 @@
 import type { AppProps as NextAppProps } from 'next/app';
 import Head from 'next/head';
-import type { ComponentType, ReactNode } from 'react';
 import { Fragment } from 'react';
 
 import type { GlobalExploreMapState } from '../components/explore/global-state';
@@ -12,11 +11,11 @@ import '../styles/global.css';
 
 type AppState = GlobalExploreMapState;
 
-type LayoutProps = AppState;
+type LayoutOptions = AppState;
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
-    Layout: ComponentType<LayoutProps>; 
+    getLayout(options: LayoutOptions, page: JSX.Element): JSX.Element; 
   };
 }
 
@@ -26,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
   // Persistent layout between groups of pages
   // (but not *all* pages)
   // https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/
-  const Layout = Component.Layout || NoLayout;
+  const getLayout = Component.getLayout || getNoLayout;
 
   return (
     <Fragment>
@@ -37,15 +36,13 @@ export default function App({ Component, pageProps }: AppProps) {
         /> 
       </Head>
       <AppBar />
-      <main className="w-full h-full relative">
-        <Layout {...globalExploreMapState}>
-          <Component {...globalExploreMapState} {...pageProps} />
-        </Layout>
+      <main className="w-full h-full relative overflow-hidden">
+        {getLayout(globalExploreMapState, <Component {...globalExploreMapState} {...pageProps} />)}
       </main>
     </Fragment>
   );
 }
 
-function NoLayout(props: { children: ReactNode }) {
-  return <Fragment>{props.children}</Fragment>;
+function getNoLayout(_: any, page: JSX.Element) {
+  return page;
 }
