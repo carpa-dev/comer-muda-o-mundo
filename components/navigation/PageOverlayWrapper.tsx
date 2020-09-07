@@ -1,6 +1,7 @@
-import { m as motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { memo } from 'react';
+
+import { motion } from '../animation/framer-motion';
 
 interface PageOverlayWrapperProps {
   children: ReactNode;
