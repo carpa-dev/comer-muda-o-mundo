@@ -2,12 +2,15 @@ import Head from 'next/head';
 import { Fragment } from 'react';
 
 import type { InteractiveMap, Markers } from '../components/maps/google-maps';
-import { getExploreMapLayout } from '../components/explore/ExploreMap';
+import { useExploreMap } from '../components/explore/ExploreMap';
+import { getExploreMapLayout } from '../components/explore/ExploreMapLayout';
 import { useInitiativesOnMap } from '../components/explore/ExploreMapInitiatives';
 
 interface HomeProps {
   map: InteractiveMap;
+  mapContainer: HTMLElement | undefined;
   markers: Markers;
+  onMapInit: (map: InteractiveMap) => void;
   onMarkersInit: (markers: Markers) => void;
   initiatives: {
     title: string;
@@ -25,9 +28,12 @@ interface HomeProps {
 export default function Home({
   initiatives,
   map,
+  mapContainer,
   markers,
+  onMapInit,
   onMarkersInit,
 }: HomeProps) {
+  useExploreMap(map, mapContainer, onMapInit);
   useInitiativesOnMap(map, markers, initiatives, onMarkersInit);
 
   return (
@@ -40,7 +46,7 @@ export default function Home({
   );
 }
 
-Home.getLayout = getExploreMapLayout();
+Home.getLayout = getExploreMapLayout;
 
 export async function getStaticProps() {
   const getInitiativeSlug = (key: string) => {

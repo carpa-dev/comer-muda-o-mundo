@@ -1,14 +1,11 @@
-import { getExploreMapLayout } from '../../components/explore/ExploreMap';
+import { getExploreMapLayout } from '../../components/explore/ExploreMapLayout';
+import { PageWrapper } from '../../components/navigation/PageWrapper';
 
 export default function Initiative({ initiative }: any) {
-  return (
-    <div>
-      initiative {JSON.stringify(initiative)}
-    </div>
-  );
+  return <PageWrapper>initiative {JSON.stringify(initiative)}</PageWrapper>;
 }
 
-Initiative.getLayout = getExploreMapLayout({ overlay: true });
+Initiative.getLayout = getExploreMapLayout;
 
 export async function getStaticProps({ ...ctx }) {
   const { slug } = ctx.params;
