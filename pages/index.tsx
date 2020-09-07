@@ -22,7 +22,12 @@ interface HomeProps {
  * titulo
  * descrição
  */
-export default function Home({ initiatives, map, markers, onMarkersInit }: HomeProps) {  
+export default function Home({
+  initiatives,
+  map,
+  markers,
+  onMarkersInit,
+}: HomeProps) {
   useInitiativesOnMap(map, markers, initiatives, onMarkersInit);
 
   return (
@@ -38,9 +43,18 @@ export default function Home({ initiatives, map, markers, onMarkersInit }: HomeP
 Home.getLayout = getExploreMapLayout();
 
 export async function getStaticProps() {
+  const getInitiativeSlug = (key: string) => {
+    const exec = /\.\/(.*)\.json/.exec(key);
+    // If for some reason there is no match, go to not found page
+    return exec?.[1] ?? '404';
+  };
+
   const initiatives = await (async (context) => {
     const keys = context.keys();
-    return keys.map(context);
+    return keys.map(context).map((initiative: any, i) => ({
+      ...initiative,
+      slug: getInitiativeSlug(keys[i]),
+    }));
   })(require.context('../initiatives', false, /\.json/));
 
   // TODO:
