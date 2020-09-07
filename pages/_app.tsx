@@ -1,6 +1,11 @@
+import {
+  MotionConfig,
+  AnimationFeature,
+  ExitFeature,
+  AnimatePresence,
+} from 'framer-motion';
 import type { AppProps as NextAppProps } from 'next/app';
 import Head from 'next/head';
-import { Fragment } from 'react';
 
 import type { GlobalExploreMapState } from '../components/explore/global-state';
 import { useGlobalExploreMap } from '../components/explore/global-state';
@@ -17,7 +22,10 @@ interface AppProps extends NextAppProps {
   };
 }
 
-export default function App({ Component, pageProps }: AppProps) {
+// https://www.framer.com/api/motion/guide-reduce-bundle-size/#how-to-reduce-bundle-size
+const MOTION_FEATURES = [AnimationFeature, ExitFeature];
+
+export default function App({ Component, pageProps, router }: AppProps) {
   const appState: AppState = useGlobalExploreMap();
 
   // Persistent layout between groups of pages
@@ -25,8 +33,12 @@ export default function App({ Component, pageProps }: AppProps) {
   // https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/
   const getLayout = Component.getLayout || getNoLayout;
 
+  // With page transition animations
+  // Use router.route as unique key for page transition animations
+  // https://reacttricks.com/animating-next-page-transitions-with-framer-motion/
+  // https://www.framer.com/api/motion/animate-presence/
   return (
-    <Fragment>
+    <MotionConfig features={MOTION_FEATURES}>
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
@@ -35,9 +47,13 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <AppBar />
       <main className="w-full h-full relative overflow-hidden">
-        {getLayout(<Component {...appState} {...pageProps} />)}
+        {getLayout(
+          <AnimatePresence initial={false} exitBeforeEnter>
+            <Component key={router.route} {...appState} {...pageProps} />
+          </AnimatePresence>
+        )}
       </main>
-    </Fragment>
+    </MotionConfig>
   );
 }
 

@@ -1,10 +1,10 @@
 import Head from 'next/head';
-import { Fragment } from 'react';
 
 import type { InteractiveMap, Markers } from '../components/maps/google-maps';
 import { useExploreMap } from '../components/explore/ExploreMap';
 import { getExploreMapLayout } from '../components/explore/ExploreMapLayout';
 import { useInitiativesOnMap } from '../components/explore/ExploreMapInitiatives';
+import { PageWrapper } from '../components/navigation/PageWrapper';
 
 interface HomeProps {
   map: InteractiveMap;
@@ -37,12 +37,12 @@ export default function Home({
   useInitiativesOnMap(map, markers, initiatives, onMarkersInit);
 
   return (
-    <Fragment>
+    <PageWrapper>
       <Head>
         <title>comer muda o mundo</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    </Fragment>
+    </PageWrapper>
   );
 }
 

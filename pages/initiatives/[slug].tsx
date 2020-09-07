@@ -1,8 +1,12 @@
 import { getExploreMapLayout } from '../../components/explore/ExploreMapLayout';
-import { PageWrapper } from '../../components/navigation/PageWrapper';
+import { PageOverlayWrapper } from '../../components/navigation/PageOverlayWrapper';
 
 export default function Initiative({ initiative }: any) {
-  return <PageWrapper>initiative {JSON.stringify(initiative)}</PageWrapper>;
+  return (
+    <PageOverlayWrapper>
+      initiative {JSON.stringify(initiative)}
+    </PageOverlayWrapper>
+  );
 }
 
 Initiative.getLayout = getExploreMapLayout;
