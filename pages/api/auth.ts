@@ -1,6 +1,7 @@
-import { create, getAuthorizeURL } from './_lib/oauth2';
+import { getAuthorizeURL } from './_lib/oauth2/authorize-url';
+import { authorizationCode } from './_lib/oauth2';
 import * as zod from 'zod';
-import { withValidation } from './_lib/validator';
+import { withValidation } from './_lib/request-validator';
 import { NextApiResponse } from 'next';
 import { randomString } from './_lib/random';
 
@@ -12,9 +13,11 @@ const RequestSchema = zod
   .nonstrict();
 
 function handle(req: zod.infer<typeof RequestSchema>, res: NextApiResponse) {
-  const oauth2 = create();
-
-  const url = getAuthorizeURL(req.headers.host, oauth2, randomString);
+  const url = getAuthorizeURL(
+    req.headers.host,
+    authorizationCode,
+    randomString
+  );
 
   res.writeHead(301, { Location: url });
   res.end();

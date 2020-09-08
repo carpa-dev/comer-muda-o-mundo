@@ -1,4 +1,4 @@
-import { getAuthorizeURL, URLAuthorizer } from './oauth2';
+import { getAuthorizeURL, URLAuthorizer } from './authorize-url';
 import { createMock } from 'ts-auto-mock';
 import { On, method } from 'ts-auto-mock/extension';
 
