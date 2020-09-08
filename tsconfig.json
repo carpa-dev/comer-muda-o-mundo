@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "transform": "ts-auto-mock/transformer",
+        "cacheBetweenTests": false
+      }
+    ],
     "target": "es5",
     "lib": [
       "dom",
@@ -16,7 +22,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",

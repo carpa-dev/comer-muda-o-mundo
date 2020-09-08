@@ -1,0 +1,32 @@
+  .geosuggest__suggests--hidden {
+    max-height: 0;
+    overflow: hidden;
+    border-width: 0;
+    display: none;
+  }
+  .geosuggest__item--active {
+    background: #267dc0;
+    color: #fff;
+  }
+  .geosuggest__input-wrapper input {
+    width: 100%;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .geosuggest__suggests {
+    list-style-type: none;
+  }
+  .geosuggest__item {
+    cursor: pointer;
+    border-top: solid 1px rgb(223, 223, 227);
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+
+  .map-container {
+
+    height: 400px;
+    margin-top: 10px;
+  }

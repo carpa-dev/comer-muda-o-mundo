@@ -1,21 +1,30 @@
-import { NowRequest, NowResponse } from '@now/node';
-import crypto from 'crypto';
 import { create } from './_lib/oauth2';
+import * as zod from 'zod';
+import { withValidation } from './_lib/validator';
+import { NextApiResponse } from 'next';
+import { randomString } from './_lib/random';
 
-export const randomString = () => crypto.randomBytes(4).toString(`hex`);
+const Schema = zod
+  .object({
+    headers: zod
+      .object({
+        host: zod.string(),
+      })
+      .nonstrict(),
+  })
+  .nonstrict();
 
-export default (req: NowRequest, res: NowResponse) => {
-  console.log('received request');
-  const { host } = req.headers;
-
+function handle(req: zod.infer<typeof Schema>, res: NextApiResponse) {
   const oauth2 = create();
 
   const url = oauth2.authorizeURL({
-    redirect_uri: `https://${host}/api/callback`,
+    redirect_uri: `https://${req.headers.host}/api/callback`,
     scope: `repo,user`,
     state: randomString(),
   });
 
   res.writeHead(301, { Location: url });
   res.end();
-};
+}
+
+export default withValidation(Schema, handle);
