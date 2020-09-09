@@ -1,0 +1,10 @@
+/* entry edition mode toolbar */
+div[class*=ToolbarContainer] {
+  /* TODO: use tailwind value for app bar height */
+  top: 48px;
+}
+
+/* markdown widget toolbar */
+div[class*=EditorControlBar] div[class*=ToolbarContainer] {
+  top: 0;
+}

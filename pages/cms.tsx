@@ -40,7 +40,7 @@ export default function Cms() {
       collections: [
         {
           name: 'initiatives',
-          label: 'initiatives',
+          label: 'iniciativas',
           folder: 'initiatives',
           create: true,
           slug: '{{slug}}',
@@ -66,6 +66,26 @@ export default function Cms() {
               label: 'Description',
               name: 'description',
               widget: 'string',
+            },
+          ],
+        },
+        {
+          name: 'pages',
+          label: 'páginas',
+          files: [
+            {
+              name: 'about',
+              label: 'sobre',
+              file: 'content/pages/about.json',
+              extension: 'json',
+              format: 'json',
+              fields: [
+                {
+                  name: 'body',
+                  label: 'conteúdo',
+                  widget: 'markdown',
+                },
+              ],
             },
           ],
         },

@@ -9,10 +9,3 @@ html, body {
   height: 100%;
   position: relative;
 }
-
-/* CMS */
-
-div[class*=ToolbarContainer] {
-  /* TODO: use tailwind value for app bar height */
-  top: 48px;
-}
