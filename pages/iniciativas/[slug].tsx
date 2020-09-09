@@ -16,7 +16,7 @@ Initiative.getLayout = getExploreMapLayout;
 export async function getStaticProps({ ...ctx }) {
   const { slug } = ctx.params;
 
-  const ini = await import(`../../initiatives/${slug}.json`).then(
+  const ini = await import(`../../content/initiatives/${slug}.json`).then(
     (a) => a.default
   );
 
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 
     // replace './my-initiative.json' by 'my-initiative'
     return keys.map((a) => a.replace(/\.json$/, '').replace(/^\.\//, ''));
-  })(require.context('../../initiatives', true, /\.json/));
+  })(require.context('../../content/initiatives', true, /\.json/));
 
   const paths = slugs.map((slug) => `/iniciativas/${slug}`);
 

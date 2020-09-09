@@ -41,7 +41,7 @@ export default function Cms() {
         {
           name: 'initiatives',
           label: 'iniciativas',
-          folder: 'initiatives',
+          folder: 'content/initiatives',
           create: true,
           slug: '{{slug}}',
           extension: 'json',

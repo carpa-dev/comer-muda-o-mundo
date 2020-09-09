@@ -63,7 +63,7 @@ export async function getStaticProps() {
       ...initiative,
       slug: getInitiativeSlug(keys[i]),
     }));
-  })(require.context('../initiatives', false, /\.json/));
+  })(require.context('../content/initiatives', false, /\.json/));
 
   // TODO:
   // validate schema
