@@ -35,6 +35,7 @@ export default function Cms() {
               proxy_url: '/proxy/api/v1',
             },
           }),
+      locale: 'pt',
       media_folder: 'public/images/uploads',
       public_folder: 'images/uploads',
       collections: [
