@@ -18,13 +18,13 @@ export function InitiativePreview({ initiatives }: InitiativePreviewProps) {
 
   const onClose = useCallback(() => router.push('/'), [router]);
 
-  const initiative = router.query.initiative
-    ? initiatives.find((i) => i.slug === router.query.initiative)
+  const initiative = router.query.iniciativa
+    ? initiatives.find((i) => i.slug === router.query.iniciativa)
     : undefined;
 
   return (
     <AnimatePresence>
-      {router.query.initiative ? (
+      {router.query.iniciativa ? (
         <Fragment key="initiative">
           {/* <button
             className="w-full h-full top-0 right-0 fixed"
@@ -40,8 +40,8 @@ export function InitiativePreview({ initiatives }: InitiativePreviewProps) {
             <h1 className="mb-4 font-bold text-xl">{initiative?.title}</h1>
             <p className="mb-4">{initiative?.description}</p>
             <Link
-              href="/initiatives/[slug]"
-              as={`/initiatives/${initiative?.slug}`}
+              href="/iniciativas/[slug]"
+              as={`/iniciativas/${initiative?.slug}`}
             >
               <a className="font-bold text-teal-500 hover:underline">
                 Ver mais

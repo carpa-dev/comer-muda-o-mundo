@@ -35,7 +35,7 @@ export async function getStaticPaths() {
     return keys.map((a) => a.replace(/\.json$/, '').replace(/^\.\//, ''));
   })(require.context('../../initiatives', true, /\.json/));
 
-  const paths = slugs.map((slug) => `/initiatives/${slug}`);
+  const paths = slugs.map((slug) => `/iniciativas/${slug}`);
 
   return {
     paths,

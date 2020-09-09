@@ -21,7 +21,7 @@ export function useInitiativesOnMap(
 
     const listeners = markers.markers.map((marker, i) =>
       marker.addListener('click', () => {
-        router.push(`/?initiative=${initiatives[i].slug}`, undefined, {
+        router.push(`/?iniciativa=${initiatives[i].slug}`, undefined, {
           shallow: true,
         });
       })
