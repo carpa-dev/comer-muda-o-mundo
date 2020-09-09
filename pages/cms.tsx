@@ -95,8 +95,12 @@ export default function Cms() {
 
     // TODO:
     // type this properly
-    import('netlify-cms' as any).then((mod) => {
-      mod.init({ config });
+    import('netlify-cms' as any).then((CMS) => {
+      CMS.init({ config });
+      CMS.registerPreviewStyle('/cms-preview.css');
+
+      // TODO: add font
+      // https://github.com/netlify/netlify-cms/issues/4257
     });
   }, []);
 
