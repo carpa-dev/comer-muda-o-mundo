@@ -41,7 +41,7 @@ export default function Cms() {
       collections: [
         {
           name: 'initiatives',
-          label: 'iniciativas',
+          label: 'Iniciativas',
           folder: 'content/initiatives',
           create: true,
           slug: '{{slug}}',
@@ -49,30 +49,30 @@ export default function Cms() {
           format: 'json',
           fields: [
             {
-              label: 'Name',
               name: 'title',
+              label: 'Nome',
               widget: 'string',
             },
             {
-              label: 'Publish Date',
+              name: 'description',
+              label: 'Descrição',
+              widget: 'string',
+            },
+            {
               name: 'date',
+              label: 'Data de publicação',
               widget: 'datetime',
             },
             {
-              label: 'Body',
               name: 'body',
+              label: 'Conteúdo',
               widget: 'markdown',
-            },
-            {
-              label: 'Description',
-              name: 'description',
-              widget: 'string',
             },
           ],
         },
         {
           name: 'pages',
-          label: 'páginas',
+          label: 'Páginas',
           files: [
             {
               name: 'about',
@@ -83,7 +83,7 @@ export default function Cms() {
               fields: [
                 {
                   name: 'body',
-                  label: 'conteúdo',
+                  label: 'Conteúdo',
                   widget: 'markdown',
                 },
               ],
