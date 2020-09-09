@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import Head from 'next/head';
+import { Fragment, useEffect } from 'react';
 
 declare global {
   interface Window {
@@ -105,10 +106,15 @@ export default function Cms() {
   }, []);
 
   return (
-    <div className="w-full h-full pt-12">
-      <div className="w-full h-full relative">
-        <div id={NETLIFY_CMS_ROOT_ELEMENT_ID}></div>
+    <Fragment>
+      <Head>
+        <link href="/cms.css" rel="stylesheet" />
+      </Head>
+      <div className="w-full h-full pt-12">
+        <div className="w-full h-full relative">
+          <div id={NETLIFY_CMS_ROOT_ELEMENT_ID}></div>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 }

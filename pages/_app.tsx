@@ -11,7 +11,6 @@ import { AppBar } from '../components/navigation/AppBar';
 
 import '../styles/tailwind.css';
 import '../styles/global.css';
-import '../styles/cms.css';
 
 type AppState = GlobalExploreMapState;
 
