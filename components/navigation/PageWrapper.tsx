@@ -13,7 +13,7 @@ export const PageWrapper = memo(function PageWrapper({
   // Set transition to 0 to make route change faster
   return (
     <motion.div
-      className="w-full h-full px-4 py-20 bg-white"
+      className="w-full h-full px-4 py-20 bg-white overflow-y-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
