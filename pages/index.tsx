@@ -4,6 +4,10 @@ import type { InteractiveMap, Markers } from '../components/maps/google-maps';
 import { useExploreMap } from '../components/explore/ExploreMap';
 import { getExploreMapLayout } from '../components/explore/ExploreMapLayout';
 import { useInitiativesOnMap } from '../components/explore/ExploreMapInitiatives';
+import type {
+  Initiative,
+  InitiativeCMS,
+} from '../components/initiatives/types';
 import { NoTransitionWrapper } from '../components/navigation/NoTransitionWrapper';
 import { InitiativePreview } from '../components/explore/InitiativePreview';
 
@@ -13,12 +17,7 @@ interface HomeProps {
   markers: Markers;
   onMapInit: (map: InteractiveMap) => void;
   onMarkersInit: (markers: Markers) => void;
-  initiatives: {
-    title: string;
-    description: string;
-    slug: string;
-    position: google.maps.LatLngLiteral;
-  }[];
+  initiatives: Initiative[];
 }
 
 /**
@@ -59,8 +58,8 @@ export async function getStaticProps() {
 
   const initiatives = await (async (context) => {
     const keys = context.keys();
-    return keys.map(context).map((initiative: any, i) => ({
-      ...initiative,
+    return keys.map(context).map((initiative, i) => ({
+      ...(initiative as InitiativeCMS),
       slug: getInitiativeSlug(keys[i]),
     }));
   })(require.context('../content/initiatives', false, /\.json/));

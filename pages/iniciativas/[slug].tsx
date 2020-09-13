@@ -1,7 +1,14 @@
 import { getExploreMapLayout } from '../../components/explore/ExploreMapLayout';
+import type { Initiative } from '../../components/initiatives/types';
 import { PageOverlayWrapper } from '../../components/navigation/PageOverlayWrapper';
 
-export default function Initiative({ initiative }: any) {
+interface InitiativeDetailsProps {
+  initiative: Initiative;
+}
+
+export default function InitiativeDetails({
+  initiative,
+}: InitiativeDetailsProps) {
   return (
     <PageOverlayWrapper>
       <h1 className="mb-4 font-bold text-xl">{initiative.title}</h1>
@@ -11,7 +18,7 @@ export default function Initiative({ initiative }: any) {
   );
 }
 
-Initiative.getLayout = getExploreMapLayout;
+InitiativeDetails.getLayout = getExploreMapLayout;
 
 export async function getStaticProps({ ...ctx }) {
   const { slug } = ctx.params;

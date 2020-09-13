@@ -3,14 +3,10 @@ import { useRouter } from 'next/router';
 import { useCallback, Fragment } from 'react';
 
 import { motion, AnimatePresence } from '../animation/framer-motion';
+import type { Initiative } from '../initiatives/types';
 
 interface InitiativePreviewProps {
-  initiatives: {
-    title: string;
-    description: string;
-    slug: string;
-    position: google.maps.LatLngLiteral;
-  }[];
+  initiatives: Initiative[];
 }
 
 export function InitiativePreview({ initiatives }: InitiativePreviewProps) {
