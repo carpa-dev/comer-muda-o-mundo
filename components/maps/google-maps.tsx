@@ -1,5 +1,5 @@
 import type MarkerClusterer from '@google/markerclustererplus';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { GOOGLE_MAPS_API_KEY } from '../../config/keys';
 
@@ -12,39 +12,60 @@ declare global {
   }
 }
 
+/**
+ * Dynamically load the Google Maps API on the browser.
+ *
+ * From the official docs example:
+ * https://developers.google.com/maps/documentation/javascript/overview#Loading_the_Maps_API
+ */
+export function loadGoogleMaps(callback: () => void, libraries: string[] = []) {
+  // Prevent from loading duplicates
+  if (window.google !== undefined) {
+    return;
+  }
+
+  let src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
+
+  // Load additional libraries
+  if (libraries.length > 0) {
+    src = `${src}&libraries=${libraries.join(',')}`;
+  }
+
+  // Create the script tag, set the appropriate attributes
+  const script = document.createElement('script');
+  script.src = src;
+  script.defer = true;
+
+  // Attach your callback function to the `window` object
+  window.initMap = function () {
+    // JS API is loaded and available
+    callback();
+  };
+
+  // Append the 'script' element to 'head'
+  document.head.appendChild(script);
+}
+
 export type GoogleMaps =
   | { init: false }
   | { init: true; google: typeof window.google };
 
 /**
- * Load Google Maps API on the browser.
- *
- * From the Dynamic Loading example:
- * https://developers.google.com/maps/documentation/javascript/overview#Loading_the_Maps_API
+ * Access the Google Maps API on the browser.
+ * If it's not initialized, dynamically load it.
  */
 export function useGoogleMaps(): GoogleMaps {
   const [init, setInit] = useState(
     typeof window !== 'undefined' && window.google !== undefined
   );
+  const initCallback = useCallback(() => setInit(true), [setInit]);
 
   useEffect(() => {
     if (init) {
       return;
     }
 
-    // Create the script tag, set the appropriate attributes
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
-    script.defer = true;
-
-    // Attach your callback function to the `window` object
-    window.initMap = function () {
-      // JS API is loaded and available
-      setInit(true);
-    };
-
-    // Append the 'script' element to 'head'
-    document.head.appendChild(script);
+    loadGoogleMaps(initCallback);
   }, []);
 
   return init ? { init, google: window.google } : { init };

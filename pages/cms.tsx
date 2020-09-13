@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { Fragment, useEffect } from 'react';
 
+import { EnhancedMapWidgetControl } from '../components/cms/widgets/EnhancedMapWidgetControl';
+
 declare global {
   interface Window {
     CMS_MANUAL_INIT: boolean | undefined;
@@ -65,6 +67,11 @@ export default function Cms() {
               widget: 'datetime',
             },
             {
+              name: 'location',
+              label: 'Localização',
+              widget: 'enhanced-map',
+            },
+            {
               name: 'body',
               label: 'Conteúdo',
               widget: 'markdown',
@@ -99,6 +106,7 @@ export default function Cms() {
     import('netlify-cms' as any).then((CMS) => {
       CMS.init({ config });
       CMS.registerPreviewStyle('/cms-preview.css');
+      CMS.registerWidget('enhanced-map', EnhancedMapWidgetControl);
 
       // TODO: add font
       // https://github.com/netlify/netlify-cms/issues/4257

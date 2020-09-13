@@ -7,5 +7,13 @@
     "lng": 147.154312
   },
   "date": "2020-09-06T20:38:43.992Z",
-  "body": "joijoijoi"
+  "body": "joijoijoi",
+  "location": {
+    "coordinates": {
+      "lat": -23.5310708,
+      "lng": -46.64967240000001
+    },
+    "formattedAddress": "Alameda Eduardo Prado, 499 - Campos Elíseos, São Paulo - SP, 01216-000, Brasil",
+    "placeId": "ChIJbR9lFGtYzpQR1VTzz2mfl04"
+  }
 }

@@ -1,0 +1,20 @@
+.map {
+  height: 300px;
+}
+
+.input {
+  width: calc(100% - 8px);
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 8px;
+  background-color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 4px 16px;
+  text-overflow: ellipsis;
+}
+
+.input:focus {
+  border-color: #4d90fe;
+}
