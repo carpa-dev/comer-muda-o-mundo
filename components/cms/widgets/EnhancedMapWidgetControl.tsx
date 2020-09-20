@@ -32,6 +32,10 @@ export class EnhancedMapWidgetControl extends Component<
     }
   }
 
+  componentWillUnmount() {
+    // TODO: clean up map and autocomplete
+  }
+
   setupWidgets = () => {
     setupGoogleMapsWidgets(
       this.props.forID,
@@ -124,8 +128,6 @@ function setupGoogleMapsWidgets(
   autocomplete.addListener('place_changed', () => {
     marker.setVisible(false);
     const place = autocomplete.getPlace();
-
-    console.log(place);
 
     if (!place.geometry) {
       // User entered the name of a Place that was not suggested and
