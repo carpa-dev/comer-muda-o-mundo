@@ -20,7 +20,7 @@
     "remark": "^12.0.1",
     "remark-html": "^12.0.0",
     "simple-oauth2": "^4.1.0",
-    "tailwindcss": "^1.8.5"
+    "tailwindcss": "^1.8.12"
   },
   "devDependencies": {
     "@types/googlemaps": "^3.39.13",
