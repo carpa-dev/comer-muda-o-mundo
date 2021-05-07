@@ -13,7 +13,7 @@
     "@google/markerclustererplus": "^5.1.0",
     "@now/node": "^1.8.1",
     "framer-motion": "^2.6.6",
-    "netlify-cms": "^2.10.56",
+    "netlify-cms": "^2.10.122",
     "next": "9.5.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
